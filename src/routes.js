@@ -15,60 +15,35 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       },
       component: 'dashboard'
     })
-    .state('companies', {
-      url: '/companies',
+    .state('readings', {
+      url: '/readings',
       data: {
         requiresAuth: true
       },
-      component: 'listCompanies'
+      component: 'readings'
     })
-    // Will be /company/:id or /company?id once the db is set up
-    .state('company', {
-      url: '/company/:companyId',
+    .state('reading', {
+      url: '/reading/:readingId',
       resolve: {
-        companyId: ['$stateParams', p => p.companyId]
+        readingId: ['$stateParams', p => p.readingId]
       },
       data: {
         requiresAuth: true
       },
       component: 'companyDetail'
     })
-    .state('positions', {
-      url: '/positions',
-      data: {
-        requiresAuth: true
-      },
-      component: 'positions'
-    })
-    .state('position', {
-      url: '/position/:positionId',
-      resolve: {
-        positionId: ['$stateParams', p => p.positionId]
-      },
-      data: {
-        requiresAuth: true
-      },
-      component: 'positionDetail'
-    })
-    .state('actions', {
-      url: '/actions/:parentId/:parentName/:which',
-      resolve: {
-        parentId: ['$stateParams', p => p.parentId],
-        which: ['$stateParams', p => p.which],
-        parentName: ['$stateParams', p => p.parentName]
-      },
-      data: {
-        requiresAuth: true
-      },
-      component: 'actionItemList'
-    })
-    .state('contacts', {
-      url: '/contacts',
-      data: {
-        requiresAuth: true
-      },
-      component: 'contacts'
-    })
+    // .state('actions', {
+    //   url: '/actions/:parentId/:parentName/:which',
+    //   resolve: {
+    //     parentId: ['$stateParams', p => p.parentId],
+    //     which: ['$stateParams', p => p.which],
+    //     parentName: ['$stateParams', p => p.parentName]
+    //   },
+    //   data: {
+    //     requiresAuth: true
+    //   },
+    //   component: 'actionItemList'
+    // })
     .state('user', {
       url: '/user',
       data: {

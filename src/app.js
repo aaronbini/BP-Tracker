@@ -4,16 +4,18 @@ import components from './components';
 import services from './services';
 import md from 'angular-material';
 import messages from 'angular-messages';
+// import d3 from 'd3';
 import 'angular-material/angular-material.css';
 import 'angular-ui-router/release/stateEvents';
 
-const app = angular.module('jobHunter', [
+const app = angular.module('bpTracker', [
   router,
   angular.module('ui.router.state.events').name,
   components,
   services,
   md,
-  messages
+  messages,
+  // d3
 ]);
 
 app.config(['$mdThemingProvider', function($mdThemingProvider){
