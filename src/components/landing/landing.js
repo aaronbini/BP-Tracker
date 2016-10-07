@@ -1,4 +1,4 @@
-import template from './charts.html';
+import template from './landing.html';
 
 export default {
   template,

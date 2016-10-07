@@ -4,9 +4,9 @@
   "description": "'Application for helping users intuitively track blood pressure readings'",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --reporters nyan",
+    "test": "karma start",
     "build": "webpack -p",
-    "start": "env $(cat .env) webpack-dev-server --inline"
+    "start": "webpack-dev-server --inline"
   },
   "dependencies": {
     "angular": "^1.5.8",
