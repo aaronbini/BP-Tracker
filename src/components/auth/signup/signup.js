@@ -3,16 +3,16 @@ import template from './signup.html';
 export default {
   template,
   bindings: {
-    success: '<',
-    cancel: '<'
+    success: '&',
+    cancel: '&'
   },
   controller
 };
 
 controller.$inject = ['userService'];
-function controller () {
+function controller (userService) {
   this.credentials = {
-    name: '',
+    username: '',
     email: '',
     password: ''
   };
@@ -25,6 +25,7 @@ function controller () {
       })
       .catch((error) => {
         this.error = error;
+        this.cancel();
         return false;
       });
   };

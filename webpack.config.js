@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: '../cleverjobserver/public',
+    path: '../bpServer/public',
     filename: 'bundle.js'
   },
   devtool: 'source-map',
