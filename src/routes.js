@@ -13,7 +13,20 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       data: {
         requiresAuth: true
       },
+      resolve: {
+        todayReading: ['$stateParams', p => {
+          console.log(p);
+          if (p) return p.todayReading;
+        }],
+      },
       component: 'dashboard'
+    })
+    .state('newReading', {
+      url: '/newReading',
+      data: {
+        requiresAuth: true
+      },
+      component: 'newReading'
     })
     .state('readings', {
       url: '/readings',
@@ -30,27 +43,28 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       data: {
         requiresAuth: true
       },
-      component: 'companyDetail'
+      component: 'reading'
     })
-    // .state('actions', {
-    //   url: '/actions/:parentId/:parentName/:which',
-    //   resolve: {
-    //     parentId: ['$stateParams', p => p.parentId],
-    //     which: ['$stateParams', p => p.which],
-    //     parentName: ['$stateParams', p => p.parentName]
-    //   },
-    //   data: {
-    //     requiresAuth: true
-    //   },
-    //   component: 'actionItemList'
-    // })
-    .state('user', {
-      url: '/user',
+    .state('actions', {
+      url: '/actions/:parentId/:parentName/:which',
+      resolve: {
+        parentId: ['$stateParams', p => p.parentId],
+        which: ['$stateParams', p => p.which],
+        parentName: ['$stateParams', p => p.parentName]
+      },
       data: {
         requiresAuth: true
       },
-      component: 'userDetail'
+      component: 'actionItems'
     })
+    .state('account', {
+      url: '/account',
+      data: {
+        requiresAuth: true
+      },
+      component: 'account'
+    })
+    //maybe should not have admin for viewing all users?
     .state('users', {
       url: '/users',
       data: {

@@ -1,11 +1,12 @@
 <div ng-cloak>
   <md-content class="md-padding">
       <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
-        <md-nav-item ng-if="!ctrl.isAuthenticated()" name="welcome" id="logo" flex="grow">BP Tracker</md-nav-item>
+        <md-nav-item ng-if="!$ctrl.isAuthenticated()" md-nav-sref="home" name="welcome" id="logo" flex="grow">BP Tracker</md-nav-item>
         <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="welcome" id="logo" flex="grow">BP Tracker</md-nav-item>
-        <md-nav-item ng-if="!$ctrl.isAuthenticated()" md-nav-click="$ctrl.showSignin()" name="enter">Enter Site</md-nav-item>
-        <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="dashboard">BP Tracker</md-nav-item>
-        <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="new-reading" name="new-reading">Enter Reading</md-nav-item>
+        <md-nav-item ng-if="!$ctrl.isAuthenticated()" md-nav-click="$ctrl.prompt()" name="enter">Enter Site</md-nav-item>
+        <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="dashboard">Dashboard</md-nav-item>
+        <md-nav-item ng-if="$ctrl.isAuthenticated() && !$ctrl.completed" md-nav-sref="newReading" name="new-reading">Enter Reading</md-nav-item>
+        <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-click="$ctrl.logout()" name="logout">Log Out</md-nav-item>
       </md-nav-bar>
   </md-content>
 </div>

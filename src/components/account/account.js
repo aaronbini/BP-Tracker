@@ -1,4 +1,4 @@
-import template from './new-reading.html';
+import template from './account.html';
 
 export default {
   template,

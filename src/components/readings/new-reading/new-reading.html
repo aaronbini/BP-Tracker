@@ -1,0 +1,20 @@
+
+<md-button ng-if="$ctrl.show === 'false'" ng-click="$ctrl.showForm()" class="md-raised md-primary">Submit Reading</md-button>
+<form ng-if="$ctrl.show === 'true'" name="newReading" ng-submit="newReading.$valid && $ctrl.saveReading()" layout="column">
+  <md-input-container>
+    <label>Systolic:</label>
+    <input placeholder="Systolic" name="systolic" ng-model="$ctrl.reading.systolic" required>
+    <div ng-messages="newReading.systolic.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Diastolic:</label>
+    <input placeholder="Diastolic" name="diastolic" ng-model="$ctrl.reading.diastolic" required>
+    <div ng-messages="newReading.diastolic.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-button type="submit" class="md-raised md-primary">Save</md-button>
+  <md-button ng-click="$ctrl.cancel()" class="md-raised md-primary">Cancel</md-button>
+</form>

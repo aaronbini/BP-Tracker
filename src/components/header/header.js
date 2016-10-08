@@ -2,45 +2,46 @@ import template from './header.html';
 
 export default {
   template,
-  bindings: {
-
-  },
   controller
 };
 
-controller.$inject = ['userService', '$state', '$mdDialog', '$window'];
-function controller (userService, $state, $mdDialog, $window) {
-  this.userId = $window.localStorage.getItem('id');
+controller.$inject = ['userService', '$state', '$mdDialog', '$window', 'readingService'];
 
-  // if (this.userId) {
-  //   userService.getMe(this.userId)
-  //   .then(user => {
-  //     this.username = user.username;
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-  // };
+function controller(userService, $state, $mdDialog, $window, readingService) {
 
-  this.logout = () => {
+  this.username = $window.localStorage.getItem('username');
+  this.userId = $window.localStorage.getItem('userId');
+
+  if (this.userId) {
+    readingService.todayCompleted(this.userId)
+    .then(completed => {
+      
+      this.completed = completed.todayCompleted;
+      console.log(this.completed);
+    })
+    .catch(err => console.log(err));
+  }
+
+  this.logout = ()=>{
     userService.logout();
     $state.go('home');
   };
 
+  this.detailView = ()=>{
+    $state.go('user');
+  };
+
   this.isAuthenticated = userService.isAuthenticated;
 
-  this.showSignin = function () {
+  this.prompt = ()=>{
     $mdDialog.show({
       parent: angular.element(document.body),
-      // targetEvent: $event,
-      // controllerAs: '$ctrl',
-      // bindToController: true,
-      template: '<user-auth success="success()", cancel="cancel()"></user-auth>',
+      template: '<user-auth success="success()" cancel="cancel()"></user-auth>',
       controller: ['$scope', function($scope) {
-        $scope.success = () => {
+        $scope.success = function(){
           $mdDialog.hide();
-          return $state.go('dashboard');
-        },
+          return $state.go('dashboard', {username: this.username});
+        };
         $scope.cancel = () => {
           $mdDialog.hide();
         };
@@ -48,5 +49,11 @@ function controller (userService, $state, $mdDialog, $window) {
       clickOutsideToClose: true,
       escapeToClose: true
     });
+  };
+
+  var originatorEv; // necessary? no idea.
+  this.openMenu = function($mdOpenMenu, ev) {
+    originatorEv = ev;
+    $mdOpenMenu(ev);
   };
 };
