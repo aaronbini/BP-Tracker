@@ -18,11 +18,9 @@ function controller ($window, userService, $state, readingService) {
   } else {
     readingService.todayCompleted(this.userId)
       .then(today => {
-        console.log(today);
         this.todayReading = today.reading;
-        console.log(this.todayReading);
       })
       .catch(err => console.log(err));
   }
-  
+
 };

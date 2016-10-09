@@ -9,13 +9,10 @@
       <div class="full-height">
         <header></header>
         <ui-view>
-          <div class="container">
             <!-- use md-loading spinner here -->
-            <div class="banner">
-              LOADING
-              <div class="banner-left"></div>
-              <div class="banner-right"></div>
-            </div>
+          <div layout="row" layout-sm="column" layout-align="space-around">
+           <md-progress-circular md-mode="indeterminate" value="0" md-diameter="50"></md-progress-circular>
+             LOADING
           </div>
           <h1 class="load-header">Blood Pressure Tracker</h1>
         </ui-view>
@@ -25,5 +22,7 @@
         <a href="https://github.com/aaronbini/BP-tracker"><h5>Github</h5></a>
       </footer>
     </md-content>
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/rickshaw/1.5.1/rickshaw.min.js"></script>
   </body>
 </html>
