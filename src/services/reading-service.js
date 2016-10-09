@@ -15,8 +15,13 @@ export default function readingService (tokenService, $http, apiUrl) {
         .then(response => response.data);
     },
 
+    getInRange (userId, range) {
+      return $http.post(`${apiUrl}/readings/${userId}/`, range)
+        .then(response => response.data);
+    },
+
     getByUser (userId) {
-      return $http.get(`${apiUrl}/readings/user/${userId}`)
+      return $http.get(`${apiUrl}/readings/byUser/${userId}`)
         .then(response => response.data);
     },
 

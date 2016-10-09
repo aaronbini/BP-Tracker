@@ -4,9 +4,19 @@ import components from './components';
 import services from './services';
 import md from 'angular-material';
 import messages from 'angular-messages';
-// import d3 from 'd3';
 import 'angular-material/angular-material.css';
 import 'angular-ui-router/release/stateEvents';
+
+// angular.module('momentjs',[])
+//   .factory('moment', function ($window) {
+//     if($window.moment){
+//       $window._thirdParty = $window._thirdParty || {};
+//       $window._thirdParty.moment = $window.moment;
+//       try { delete $window.moment; } catch (e) {$window.moment = undefined;}
+//     }
+//     var moment = $window._thirdParty.moment;
+//     return moment;
+//   });
 
 const app = angular.module('bpTracker', [
   router,
