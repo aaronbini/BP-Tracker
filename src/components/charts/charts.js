@@ -1,4 +1,5 @@
 import template from './charts.html';
+import styles from './charts.scss';
 
 export default {
   template,
@@ -6,100 +7,72 @@ export default {
   controller
 };
 
-controller.$inject = ['d3Service', 'readingService', '$window'];
-function controller (d3Service, readingService, $window) {
-
+controller.$inject = ['readingService', '$window', 'chartService'];
+function controller (readingService, $window, chartService) {
+  this.styles = styles;
   this.userId = $window.localStorage.getItem('userId');
-  this.rickshaw = d3Service.rickshaw;
+
   const element1 = document.getElementById('graph');
 
   readingService.getByUser(this.userId)
     .then(readings => {
       this.readings = readings;
-      // console.log(readings)
+      return chartService.formatDates(this.readings);
+    })
+    .then(dateFormatted => {
+      return chartService.configChart(dateFormatted);
+    })
+    .then(dataPlot => {
+      this.createLineGraph(element1, dataPlot);
     })
     .catch(err => console.log(err));
 
-  this.createGraph = (element) => {
-    const graph = new this.rickshaw.Graph( {
-      element,
-      series: [
-        {
-          color: 'steelblue',
-          data: [ { x: 0, y: 23}, { x: 1, y: 15 }, { x: 2, y: 79 } ]
-        }, {
-          color: 'lightblue',
-          data: [ { x: 0, y: 30}, { x: 1, y: 20 }, { x: 2, y: 64 } ]
+  //chart sys over dia on same graph
+  this.createLineGraph = (element, data) => {
+    this.chart = new chartService.chart(element, {
+      type: 'line',
+      fill: false,
+      data,
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+            time: {
+              unit: 'day'
+            },
+            position: 'bottom'
+          }],
+          yAxes: [{
+            stacked: true
+          }]
         }
-      ]
-    } );
-
-    graph.render();
+      }
+    });
+    return 'function ran';
   };
 
-  this.createGraph(element1);
-
-
-  // var margin = {top: 20, right: 20, bottom: 30, left: 50},
-  //   width = 960 - margin.left - margin.right,
-  //   height = 500 - margin.top - margin.bottom;
-  //
-  // var formatDate = d3.time.format('%d-%b-%y');
-  //
-  // var x = d3.time.scale()
-  //   .range([0, width]);
-  //
-  // var y = d3.scale.linear()
-  //   .range([height, 0]);
-  //
-  // var xAxis = d3.svg.axis()
-  //   .scale(x)
-  //   .orient('bottom');
-  //
-  // var yAxis = d3.svg.axis()
-  //   .scale(y)
-  //   .orient('left');
-  //
-  // var line = d3.svg.line()
-  //   .x(function(d) { return x(d.date); })
-  //   .y(function(d) { return y(d.close); });
-  //
-  // var svg = d3.select('body').append('svg')
-  //   .attr('width', width + margin.left + margin.right)
-  //   .attr('height', height + margin.top + margin.bottom)
-  //   .append('g')
-  //   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-  // d3.tsv('data.tsv', type, function(error, data) {
-  //   if (error) throw error;
-  //
-  //   x.domain(d3.extent(data, function(d) { return d.date; }));
-  //   y.domain(d3.extent(data, function(d) { return d.close; }));
-  //
-  //   svg.append('g')
-  //     .attr('class', 'x axis')
-  //     .attr('transform', 'translate(0,' + height + ')')
-  //     .call(xAxis);
-  //
-  //   svg.append('g')
-  //     .attr('class', 'y axis')
-  //     .call(yAxis)
-  //   .append('text')
-  //     .attr('transform', 'rotate(-90)')
-  //     .attr('y', 6)
-  //     .attr('dy', '.71em')
-  //     .style('text-anchor', 'end')
-  //     .text('Price ($)');
-  //
-  //   svg.append('path')
-  //     .datum(data)
-  //     .attr('class', 'line')
-  //     .attr('d', line);
-  // });
-
-  // function type(d) {
-  //   d.date = formatDate.parse(d.date);
-  //   d.close = +d.close;
-  //   return d;
-  // }
 };
+
+// this.createLineGraph = (element, series) => {
+//   console.log('in graph function, series: ', series);
+//   const graph = new this.rickshaw.Graph({
+//     element,
+//     renderer: 'line',
+//     series
+//   });
+//
+//   const x_axis = new this.rickshaw.Graph.Axis.Time({graph: graph});
+//   // const y_axis = new this.rickshaw.Graph.Axis.Y({
+//   //   graph,
+//   //   orientation: 'left',
+//   //   tickFormat: this.rickshaw.Fixtures.Number.formatKMBT,
+//   //   element: document.getElementById('y_axis')
+//   // });
+//   new this.rickshaw.Graph.Legend({
+//     element: document.getElementById('legend'),
+//     graph
+//   });
+//
+//   graph.render();
+//   x_axis.render();
+// };

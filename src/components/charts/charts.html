@@ -1,4 +1,5 @@
-<h2>Data Visualiztions</h2>
-<h3>Charts Charts Charts!</h3>
-<data-query readings="$ctrl.readings"></data-query>
-<div id="graph"></div>
+<query ng-if="$ctrl.readings" userId="$ctrl.userId" readings="$ctrl.readings" createLineGraph="$ctrl.createLineGraph"></query>
+
+<div class="canvasContain">
+  <canvas id="graph"></canvas>
+</div>
