@@ -17,4 +17,7 @@
         </md-dialog-actions>
     </form>
 </md-dialog-content>
+<div ng-if="$ctrl.errorMessage" class="error">
+  <h3>**{{$ctrl.errorMessage}}</h3>
+</div>
 <md-divider ></md-divider>

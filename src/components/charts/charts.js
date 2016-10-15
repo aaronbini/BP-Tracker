@@ -14,21 +14,9 @@ function controller (readingService, $window, chartService) {
 
   const element1 = document.getElementById('graph');
 
-  readingService.getByUser(this.userId)
-    .then(readings => {
-      this.readings = readings;
-      return chartService.formatDates(this.readings);
-    })
-    .then(dateFormatted => {
-      return chartService.configChart(dateFormatted);
-    })
-    .then(dataPlot => {
-      this.createLineGraph(element1, dataPlot);
-    })
-    .catch(err => console.log(err));
-
   //chart sys over dia on same graph
   this.createLineGraph = (element, data) => {
+    console.log('run this');
     this.chart = new chartService.chart(element, {
       type: 'line',
       fill: false,
@@ -48,8 +36,20 @@ function controller (readingService, $window, chartService) {
         }
       }
     });
-    return 'function ran';
   };
+
+  readingService.getByUser(this.userId)
+    .then(readings => {
+      this.readings = readings;
+      return chartService.formatDates(this.readings);
+    })
+    .then(dateFormatted => {
+      return chartService.configChart(dateFormatted);
+    })
+    .then(dataPlot => {
+      this.createLineGraph(element1, dataPlot);
+    })
+    .catch(err => console.log(err));
 
 };
 

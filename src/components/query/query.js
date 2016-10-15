@@ -1,29 +1,25 @@
 import template from './query.html';
+import styles from './query.scss';
 
 export default {
   template,
   bindings: {
-    readings: '<',
     createLineGraph: '<',
-    userId: '<'
+    readings: '<',
+    userId: '<',
   },
   controller
 };
 
-controller.$inject = ['readingService', '$window', 'chartService'];
-function controller (readingService, $window, chartService) {
+controller.$inject = ['readingService', 'chartService'];
+function controller (readingService, chartService) {
 
+  this.styles = styles;
   this.show = 'true';
-  // this.userId = $window.localStorage.getItem('userId');
   this.dateRange = {
     fromDate: null,
     toDate: null
   };
-
-  // this.createLineGraph = createLineGraph;
-  console.log(this.userId);
-  console.log(this.createLineGraph);
-  console.log(this.readings);
 
   const element1 = document.getElementById('graph');
 
@@ -36,7 +32,7 @@ function controller (readingService, $window, chartService) {
   };
 
   this.submit = () => {
-    console.log('submitted');
+    this.errorMessage = null;
     readingService.getInRange(this.userId, this.dateRange)
       .then(readings => {
         this.readings = readings;
@@ -48,6 +44,9 @@ function controller (readingService, $window, chartService) {
       .then(dataPlot => {
         this.createLineGraph(element1, dataPlot);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err.data);
+        this.errorMessage = err.data;
+      });
   };
 };
