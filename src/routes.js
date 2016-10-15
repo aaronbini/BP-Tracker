@@ -15,7 +15,6 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       },
       resolve: {
         todayReading: ['$stateParams', p => {
-          console.log(p);
           if (p) return p.todayReading;
         }],
       },

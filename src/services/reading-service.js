@@ -16,7 +16,8 @@ export default function readingService (tokenService, $http, apiUrl) {
     },
 
     getInRange (userId, range) {
-      return $http.post(`${apiUrl}/readings/${userId}/`, range)
+      console.log(range);
+      return $http.post(`${apiUrl}/readings/dateRange/${userId}`, range)
         .then(response => response.data);
     },
 

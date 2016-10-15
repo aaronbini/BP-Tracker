@@ -1,0 +1,23 @@
+<h2>Query Readings</h2>
+<md-dialog-content>
+    <md-dialog-actions>
+      <md-button ng-if="$ctrl.show === 'false'" ng-click="$ctrl.showForm()">Show Query Options</md-button>
+    </md-dialog-actions>
+    <form ng-if="$ctrl.show === 'true'" name="readingQuery" ng-submit="$ctrl.submit()"
+        novalidate>
+        <md-input-container>
+            <md-datepicker ng-model="$ctrl.dateRange.fromDate" md-placeholder="From Date:"></md-datepicker>
+        <md-input-container>
+        <md-input-container>
+            <md-datepicker ng-model="$ctrl.dateRange.toDate" md-placeholder="To Date:"></md-datepicker>
+        <md-input-container>
+        <md-dialog-actions>
+            <md-button type="submit" class="md-primary">View Charts</md-button>
+            <md-button ng-click="$ctrl.cancel()" class="md-primary">Hide Query Menu</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog-content>
+<div ng-if="$ctrl.errorMessage" class="error">
+  <h3>**{{$ctrl.errorMessage}}</h3>
+</div>
+<md-divider ></md-divider>

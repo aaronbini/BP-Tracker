@@ -1,20 +1,18 @@
-:local(.example) {
+:local() {
   // to isolate local classes with same names as in main.scss?
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+.canvasContain {
+  width: 75%;
+  height: 50%;
+  padding: calc((100% - 1500px)/6.1);
+  display: inline-block;
 }
 
-.x.axis path {
-  display: none;
+.canvasContain canvas {
+  margin-top: 40px;
 }
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
+.canvasContain:last-child {
+  margin-right: 0;
 }

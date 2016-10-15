@@ -1,0 +1,17 @@
+.error {
+  border: 2px solid darkred;
+  border-radius: 15px;
+  opacity: 0.3;
+  background-color: red;
+  width: 75%;
+  height: 25px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.error h3 {
+  color: white;
+}

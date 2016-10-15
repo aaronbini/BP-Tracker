@@ -3,4 +3,14 @@
 <div>User inputs for data viz</div>
 <div>Charts and stats</div>
 <p>Reading for {{$ctrl.date | date: 'longDate'}}: {{$ctrl.todayReading.systolic}} / {{$ctrl.todayReading.diastolic}}</p>
-<charts></charts>
+
+<md-card>
+  <md-card-header>
+    <md-card-header-text>
+      <h2>Blood Pressure Charts</h2>
+    </md-card-header-text>
+  </md-card-header>
+  <md-card-content>
+    <charts>Loading...</charts>
+  </md-card-content>
+</md-card>
