@@ -3,13 +3,13 @@
   <!-- <md-dialog-content> -->
     <md-input-container>
       <input name="email" required placeholder="Email" type="text" ng-model="$ctrl.credentials.email">
-      <div ng-messages="auth.username.$error" role="alert">
+      <div ng-messages="auth.email.$error" role="alert">
         <div ng-message="required">An email is required.</div>
       </div>
     </md-input-container>
     <md-input-container>
-      <input placeholder="Password" type="password" ng-model="$ctrl.credentials.password">
-      <div ng-messages="auth.username.$error" role="alert">
+      <input name="password" required placeholder="Password" type="password" ng-model="$ctrl.credentials.password">
+      <div ng-messages="auth.password.$error" role="alert">
         <div ng-message="required">A password is required.</div>
       </div>
     </md-input-container>
@@ -21,4 +21,4 @@
     <md-button ng-click="$ctrl.cancel()">Cancel</md-button>
   </md-dialog-actions>
 </form>
-<div class="error" ng-if="$ctrl.error">{{$ctrl.error.reason}}</div>
+<div class="error" ng-if="$ctrl.error">{{$ctrl.error.data.message}}</div>

@@ -19,7 +19,8 @@ function controller (userService) {
 
   this.authenticate = () => {
     return userService.signup(this.credentials)
-      .then(() => {
+      .then((user) => {
+        console.log('user: ', user);
         this.success();
         return true;
       })
