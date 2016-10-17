@@ -46,7 +46,7 @@ function controller (readingService, chartService) {
       })
       .catch(err => {
         console.log(err.data);
-        this.errorMessage = err.data;
+        this.errorMessage = err.data.error;
       });
   };
 };

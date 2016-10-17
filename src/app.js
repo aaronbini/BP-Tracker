@@ -30,11 +30,11 @@ const app = angular.module('bpTracker', [
 
 app.config(['$mdThemingProvider', function($mdThemingProvider){
   $mdThemingProvider.theme('default')
-    .primaryPalette('blue-grey')
-    .accentPalette('lime')
-    .backgroundPalette('blue-grey')
-    .warnPalette('lime')
-    .dark();
+    .primaryPalette('teal')
+    .accentPalette('deep-orange')
+    .backgroundPalette('teal')
+    .warnPalette('red')
+    // .dark();
 }]);
 
 export default app;

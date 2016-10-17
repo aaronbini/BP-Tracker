@@ -31,7 +31,7 @@ function controller (readingService, $window, chartService) {
             position: 'bottom'
           }],
           yAxes: [{
-            stacked: true
+            stacked: false
           }]
         }
       }

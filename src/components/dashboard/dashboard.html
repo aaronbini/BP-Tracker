@@ -1,13 +1,16 @@
-<h2>Welcome {{$ctrl.username}}</h2>
 
-<div>User inputs for data viz</div>
-<div>Charts and stats</div>
-<p>Reading for {{$ctrl.date | date: 'longDate'}}: {{$ctrl.todayReading.systolic}} / {{$ctrl.todayReading.diastolic}}</p>
+<div class="welcome">
+</div>
+<h4></h4>
+<h5></h5>
 
 <md-card>
   <md-card-header>
     <md-card-header-text>
-      <h2>Blood Pressure Charts</h2>
+      <div class="welcome">
+        <h2>Welcome {{$ctrl.username}}</h2>
+        <h3>Today's Reading: <span>{{$ctrl.todayReading.systolic}} / {{$ctrl.todayReading.diastolic}}</span></h3>
+      </div>
     </md-card-header-text>
   </md-card-header>
   <md-card-content>
