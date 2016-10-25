@@ -3,10 +3,20 @@ configRoutes.$inject = ['$stateProvider', '$urlRouterProvider'];
 //routing for app
 export default function configRoutes($stateProvider, $urlRouterProvider) {
   $stateProvider
-    // this is "home" state displays by default, also when no token is found
+    // this is "home" state, displays by default, also when no token is found
     .state('home', {
       url: '/',
       component: 'landing'
+    })
+    .state('config', {
+      url: '/config',
+      data: {
+        requiresAuth: true
+      },
+      resolve: {
+        user: ['$stateParams', p => p.user],
+      },
+      component: 'config'
     })
     .state('dashboard', {
       url: '/dashboard',

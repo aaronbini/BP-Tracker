@@ -15,6 +15,16 @@ function controller ($window, userService, $state, readingService) {
   this.userId = $window.localStorage.getItem('userId');
   this.date = new Date();
 
+  // if ($state.params.user) {
+  //   this.user = $state.params.user;
+  // } else {
+  //   userService.getMe(this.userId)
+  //     .then(user => {
+  //       this.user = user;
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
   if ($state.params.todayReading) {
     this.todayReading = $state.params.todayReading;
   } else {

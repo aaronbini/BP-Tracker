@@ -32,6 +32,11 @@ export default function userService (tokenService, $http, apiUrl) {
       .then(result => result.data);
   }
 
+  function setGoals (userId, goals) {
+    return $http.post(`${apiUrl}/users/setGoals/:userId`, goals)
+      .then(result => result.data);
+  }
+
   return {
     //do we have token?
     //this returns not false (true) if there is a token
@@ -47,6 +52,8 @@ export default function userService (tokenService, $http, apiUrl) {
     signup: credential('signup'),
 
     update,
+
+    setGoals,
 
     getMe
   };
