@@ -52,6 +52,9 @@ function controller(userService, $state, $mdDialog, $window, readingService) {
           })
           .catch(err => console.log(err));
           $mdDialog.hide();
+          //check if user is signing up, if true go to config component
+          console.log(this.action);
+          // if ()
           return $state.go('dashboard', {username: this.username});
         };
         $scope.cancel = () => {

@@ -1,0 +1,26 @@
+<h3>Set Goals for your Blood Pressure Readings</h3>
+<form name="setGoals" ng-submit="setGoals.$valid && $ctrl.submitGoals()" layout="column">
+  <md-input-container>
+    <label>Systolic Goal: </label>
+    <input placeholder="Systolic Goal" name="systolic" ng-model="$ctrl.goals.systolic" required>
+    <div ng-messages="setGoals.systolic.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Diastolic Goal: </label>
+    <input placeholder="Diastolic Goal" name="diastolic" ng-model="$ctrl.goals.diastolic" required>
+    <div ng-messages="setGoals.diastolic.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Readings per Week: </label>
+    <input placeholder="Readings per Week Goal" name="perWeek" ng-model="$ctrl.goals.perWeek" required>
+    <div ng-messages="setGoals.perWeek.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-button type="submit" class="md-raised md-primary">Save</md-button>
+  <!-- <md-button ng-click="$ctrl.cancel()" class="md-raised md-primary">Cancel</md-button> -->
+</form>

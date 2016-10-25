@@ -13,10 +13,16 @@ function controller (readingService, $window, chartService) {
   this.userId = $window.localStorage.getItem('userId');
 
   const element1 = document.getElementById('graph');
+  const element2 = document.getElementById('doughnut');
 
+  this.createDoughnut = (element, data) => {
+    this.doughnut = new chartService.chart(element, {
+      type: 'doughnut',
+      data: data
+    });
+  };
   //chart sys over dia on same graph
   this.createLineGraph = (element, data) => {
-    console.log('run this');
     this.chart = new chartService.chart(element, {
       type: 'line',
       fill: false,
@@ -40,14 +46,17 @@ function controller (readingService, $window, chartService) {
 
   readingService.getByUser(this.userId)
     .then(readings => {
-      this.readings = readings;
-      return chartService.formatDates(this.readings);
+      this.readings = readings.readings;
+      this.categoryCount = readings.categoryCount;
+      console.log(this.categoryCount);
+      return {dateFormatted: chartService.formatDates(this.readings), categoryCount: this.categoryCount};
     })
-    .then(dateFormatted => {
-      return chartService.configChart(dateFormatted);
+    .then(chartObj => {
+      return {chart1: chartService.configLineChart(chartObj.dateFormatted), chart2: chartService.configDoughnut(chartObj.categoryCount)};
     })
-    .then(dataPlot => {
-      this.createLineGraph(element1, dataPlot);
+    .then(charts => {
+      this.createLineGraph(element1, charts.chart1);
+      this.createDoughnut(element2, charts.chart2);
     })
     .catch(err => console.log(err));
 
