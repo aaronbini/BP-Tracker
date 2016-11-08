@@ -22,7 +22,7 @@ function controller (readingService, $window, chartService) {
     });
   };
   //chart sys over dia on same graph
-  this.createLineGraph = (element, data) => {
+  this.createLineGraph = (element, data, unitType) => {
     this.chart = new chartService.chart(element, {
       type: 'line',
       fill: false,
@@ -32,7 +32,7 @@ function controller (readingService, $window, chartService) {
           xAxes: [{
             type: 'time',
             time: {
-              unit: 'day'
+              unit: unitType
             },
             position: 'bottom'
           }],
@@ -49,39 +49,23 @@ function controller (readingService, $window, chartService) {
       this.readings = readings.readings;
       this.categoryCount = readings.categoryCount;
       console.log(this.categoryCount);
-      return {dateFormatted: chartService.formatDates(this.readings), categoryCount: this.categoryCount};
+      return {
+        dateFormatted: chartService.formatDates(this.readings),
+        categoryCount: this.categoryCount
+      };
     })
     .then(chartObj => {
-      return {chart1: chartService.configLineChart(chartObj.dateFormatted), chart2: chartService.configDoughnut(chartObj.categoryCount)};
+      return {
+        chart1: chartService.configLineChart(chartObj.dateFormatted),
+        chart2: chartService.configDoughnut(chartObj.categoryCount),
+        firstDate: chartObj.dateFormatted[0]
+      };
     })
     .then(charts => {
-      this.createLineGraph(element1, charts.chart1);
+      const unitType = chartService.setAxisConfig(charts.firstDate);
+      console.log(unitType);
+      this.createLineGraph(element1, charts.chart1, unitType);
       this.createDoughnut(element2, charts.chart2);
     })
     .catch(err => console.log(err));
-
 };
-
-// this.createLineGraph = (element, series) => {
-//   console.log('in graph function, series: ', series);
-//   const graph = new this.rickshaw.Graph({
-//     element,
-//     renderer: 'line',
-//     series
-//   });
-//
-//   const x_axis = new this.rickshaw.Graph.Axis.Time({graph: graph});
-//   // const y_axis = new this.rickshaw.Graph.Axis.Y({
-//   //   graph,
-//   //   orientation: 'left',
-//   //   tickFormat: this.rickshaw.Fixtures.Number.formatKMBT,
-//   //   element: document.getElementById('y_axis')
-//   // });
-//   new this.rickshaw.Graph.Legend({
-//     element: document.getElementById('legend'),
-//     graph
-//   });
-//
-//   graph.render();
-//   x_axis.render();
-// };

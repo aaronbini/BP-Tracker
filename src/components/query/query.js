@@ -5,6 +5,7 @@ export default {
   template,
   bindings: {
     createLineGraph: '<',
+    createDoughnut: '<',
     readings: '<',
     userId: '<',
   },
@@ -22,6 +23,8 @@ function controller (readingService, chartService) {
   };
 
   const element1 = document.getElementById('graph');
+  const element2 = document.getElementById('doughnut');
+
 
   this.cancel = () => {
     this.show = 'false';
@@ -34,19 +37,26 @@ function controller (readingService, chartService) {
   this.submit = () => {
     this.errorMessage = null;
     readingService.getInRange(this.userId, this.dateRange)
-      .then(readings => {
-        this.readings = readings;
-        return chartService.formatDates(this.readings);
+      .then(userStats => {
+        this.readings = userStats.readings;
+        return {
+          dateFormatted: chartService.formatDates(this.readings),
+          categoryCount: userStats.categoryCount
+        };
       })
-      .then(dateFormatted => {
-        return chartService.configChart(dateFormatted);
+      .then(obj => {
+        return {
+          chart1: chartService.configLineChart(obj.dateFormatted),
+          chart2: chartService.configDoughnut(obj.categoryCount)
+        };
       })
-      .then(dataPlot => {
-        this.createLineGraph(element1, dataPlot);
+      .then(charts => {
+        this.createLineGraph(element1, charts.chart1);
+        this.createDoughnut(element2, charts.chart2);
       })
       .catch(err => {
-        console.log(err.data);
-        this.errorMessage = err.data.error;
+        console.log(err);
+        this.errorMessage = err;
       });
   };
 };

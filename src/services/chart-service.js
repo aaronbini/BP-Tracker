@@ -42,6 +42,19 @@ export default function chartService () {
       return dataPlot;
     },
 
+    setAxisConfig (firstDate) {
+      const now = new Date();
+      const then = firstDate.createdAt;
+      const elapsed = Math.floor(( now - then ) / 86400000);
+      if (elapsed >= 15 && elapsed < 90) {
+        return 'week';
+      } else if (elapsed >= 90) {
+        return 'month';
+      } else {
+        return 'day';
+      }
+    },
+
     configLineChart (readings) {
       const dataPlot = {
         datasets: [{
