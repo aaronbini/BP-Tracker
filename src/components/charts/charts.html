@@ -1,5 +1,10 @@
-<query ng-if="$ctrl.readings" test="$ctrl.test" user-id="$ctrl.userId" readings="$ctrl.readings" create-line-graph="$ctrl.createLineGraph"></query>
+<query ng-if="$ctrl.readings" test="$ctrl.test" user-id="$ctrl.userId" readings="$ctrl.readings" create-line-graph="$ctrl.createLineGraph" create-doughnut="$ctrl.createDoughnut"></query>
 
-<div class="canvasContain">
-  <canvas id="graph"></canvas>
+<div class="flex-container">
+  <div class="canvasContain">
+    <canvas id="graph"></canvas>
+  </div>
+  <div class="canvasContain">
+    <canvas id="doughnut"></canvas>
+  </div>
 </div>

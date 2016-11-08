@@ -86,3 +86,27 @@ footer a:hover {
   height: 100%;
   margin-bottom: 75px;
 }
+
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.canvasContain {
+  width: 50%;
+  height: 400px;
+  padding: calc((100% - 1500px)/6.1);
+  display: inline-block;
+}
+
+.md-button.md-icon-button {
+  width: auto;
+  display: inline-block;
+  border-radius: 0;
+}
+
+//mediaQuery for mobile-first chart display
+
+// .md-button._md-nav-button {
+//   padding: 0px;
+// }

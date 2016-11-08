@@ -11,7 +11,51 @@ export default function chartService () {
       return readings;
     },
 
-    configChart (readings) {
+    configDoughnut (countObj) {
+      const dataPlot = {
+        labels: [
+          'Good',
+          'Prehypertension',
+          'Prehypertension I',
+          'Prehypertension II',
+          'Hypertensive Crisis'
+        ],
+        datasets: [
+          {
+            data: [countObj.good, countObj.pre, countObj.hypI, countObj.hypII, countObj.crisis],
+            backgroundColor: [
+              'rgba(0, 128, 0, 0.5)',
+              'rgba(0, 255, 0, 0.5)',
+              'rgba(255, 255, 0, 0.5)',
+              'rgba(255, 165, 0, 0.5)',
+              'rgba(255, 0, 0, 0.5)'
+            ],
+            hoverBackgroundColor: [
+              'rgba(0, 128, 0, 1.0)',
+              'rgba(0, 255, 0, 1.0)',
+              'rgba(255, 255, 0, 1.0)',
+              'rgba(255, 165, 0, 1.0)',
+              'rgba(255, 0, 0, 1.0)'
+            ]
+          }]
+      };
+      return dataPlot;
+    },
+
+    setAxisConfig (firstDate) {
+      const now = new Date();
+      const then = firstDate.createdAt;
+      const elapsed = Math.floor(( now - then ) / 86400000);
+      if (elapsed >= 15 && elapsed < 90) {
+        return 'week';
+      } else if (elapsed >= 90) {
+        return 'month';
+      } else {
+        return 'day';
+      }
+    },
+
+    configLineChart (readings) {
       const dataPlot = {
         datasets: [{
           label: 'Systolic',
@@ -24,6 +68,10 @@ export default function chartService () {
         }, {
           label: 'Diastolic',
           pointStyle: 'circle',
+          pointHoverBorderWidth: 4,
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverRadius: 3,
+          pointRadius: 2,
           data: []
         }]
       };
@@ -33,7 +81,7 @@ export default function chartService () {
       });
       return dataPlot;
     }
-    
+
   };
 
 };
