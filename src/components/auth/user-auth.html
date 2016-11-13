@@ -2,9 +2,9 @@
   <md-dialog-content>
     <md-radio-group ng-model="$ctrl.action" layout="row">
       <md-radio-button class="md-accent" ng-model="$ctrl.action" value="signin">Sign In</md-radio-button>
-      <md-radio-button ng-model="$ctrl.action" value="signup">Sign Up</md-radio-button>
+      <md-radio-button class="md-accent" ng-model="$ctrl.action" value="signup">Sign Up</md-radio-button>
     </md-radio-group>
 
-  <signin ng-show="$ctrl.action==='signin'" cancel="$ctrl.cancel()" success="$ctrl.success()"></signin>
-  <signup ng-show="$ctrl.action==='signup'" cancel="$ctrl.cancel()" success="$ctrl.success()"></signup>
+  <signin ng-show="$ctrl.action==='signin'" cancel="$ctrl.cancel()" success="$ctrl.success(action)"></signin>
+  <signup ng-show="$ctrl.action==='signup'" cancel="$ctrl.cancel()" success="$ctrl.success({action: 'signup'})"></signup>
 </md-dialog>

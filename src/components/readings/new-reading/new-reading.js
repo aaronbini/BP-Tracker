@@ -14,6 +14,7 @@ function controller ($window, readingService, $state) {
   this.reading = {
     systolic: '',
     diastolic: ''
+    // hoursSlept: ''
   };
 
   this.cancel = () => {
@@ -28,9 +29,6 @@ function controller ($window, readingService, $state) {
     readingService.postNew(this.userId, this.reading)
       .then(reading => {
         $state.go('dashboard', {todayReading: reading});
-        //do something with reading
-        //send user to dashboard because only one reading per day
-        console.log(reading);
       })
       .catch(err => console.log(err));
   };

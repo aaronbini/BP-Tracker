@@ -1,7 +1,6 @@
 <div ng-cloak>
 
   <md-content class="md-padding">
-    <!-- <img src="../../../my-icons-collection/png/cardiogram.png"> -->
       <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
         <md-nav-item ng-if="!$ctrl.isAuthenticated()" md-nav-sref="home" name="welcome" id="logo" flex="grow"><span><img src="../../../my-icons-collection/png/cardiogram.png">BP Tracker</span></md-nav-item>
         <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="welcome" id="logo" flex="grow"><img src="../../../my-icons-collection/png/cardiogram.png">BP Tracker</md-nav-item>

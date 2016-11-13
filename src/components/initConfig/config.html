@@ -1,15 +1,17 @@
-<h3>Set Goals for your Blood Pressure Readings</h3>
+<h3>Welcome {{$ctrl.username}}!</h3>
+<h4>Set Goals for your BP Readings, as well as general health goals below.</h4>
+<h4>Have a Google Fit Account? Link that to this account here: </h4><md-button>Google Fit OAuth</md-button>
 <form name="setGoals" ng-submit="setGoals.$valid && $ctrl.submitGoals()" layout="column">
   <md-input-container>
     <label>Systolic Goal: </label>
-    <input placeholder="Systolic Goal" name="systolic" ng-model="$ctrl.goals.systolic" required>
+    <input placeholder="Systolic Goal" name="systolic" ng-model="$ctrl.goals.sysGoal" required>
     <div ng-messages="setGoals.systolic.$error" role="alert">
       <div ng-message="required">This is required!</div>
     </div>
   </md-input-container>
   <md-input-container>
     <label>Diastolic Goal: </label>
-    <input placeholder="Diastolic Goal" name="diastolic" ng-model="$ctrl.goals.diastolic" required>
+    <input placeholder="Diastolic Goal" name="diastolic" ng-model="$ctrl.goals.diaGoal" required>
     <div ng-messages="setGoals.diastolic.$error" role="alert">
       <div ng-message="required">This is required!</div>
     </div>
@@ -18,6 +20,13 @@
     <label>Readings per Week: </label>
     <input placeholder="Readings per Week Goal" name="perWeek" ng-model="$ctrl.goals.perWeek" required>
     <div ng-messages="setGoals.perWeek.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Sleep Goal: </label>
+    <input placeholder="Hours per Night" name="hoursSleep" ng-model="$ctrl.goals.hoursSleep" required>
+    <div ng-messages="setGoals.hoursSleep.$error" role="alert">
       <div ng-message="required">This is required!</div>
     </div>
   </md-input-container>

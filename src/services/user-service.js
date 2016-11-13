@@ -33,7 +33,7 @@ export default function userService (tokenService, $http, apiUrl) {
   }
 
   function setGoals (userId, goals) {
-    return $http.post(`${apiUrl}/users/setGoals/:userId`, goals)
+    return $http.put(`${apiUrl}/users/setGoals/${userId}`, goals)
       .then(result => result.data);
   }
 

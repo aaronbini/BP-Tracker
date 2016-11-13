@@ -33,42 +33,41 @@ function controller(userService, $state, $mdDialog, $window, readingService) {
   };
 
   this.detailView = ()=>{
+    //not yet implemented
     $state.go('user');
   };
 
   this.isAuthenticated = userService.isAuthenticated;
-
-  this.prompt = ()=>{
+  this.prompt = () => {
     $mdDialog.show({
       parent: angular.element(document.body),
-      template: '<user-auth success="success()" cancel="cancel()"></user-auth>',
+      template: '<user-auth success="success(action)" cancel="cancel()"></user-auth>',
       controller: ['$scope', function($scope) {
-        $scope.success = () => {
+
+        $scope.success = (action) => {
           this.userId = $window.localStorage.getItem('userId');
+          this.username = $window.localStorage.getItem('username');
           readingService.todayCompleted(this.userId)
           .then(completed => {
             this.completed = completed.todayCompleted;
-            console.log('inside prompt function, this.completed: ', this.completed);
+            $mdDialog.hide();
+            if (action === 'signup') {
+              console.log('username: ', this.username);
+              console.log('userID: ', this.userId);
+              return $state.go('config', {username: this.username, userId: this.userId});
+            }
+            return $state.go('dashboard', {username: this.username});
           })
           .catch(err => console.log(err));
-          $mdDialog.hide();
-          //check if user is signing up, if true go to config component
-          console.log(this.action);
-          // if ()
-          return $state.go('dashboard', {username: this.username});
         };
+
         $scope.cancel = () => {
           $mdDialog.hide();
         };
+
       }],
       clickOutsideToClose: true,
       escapeToClose: true
     });
   };
-
-  // var originatorEv; // necessary? no idea.
-  // this.openMenu = function($mdOpenMenu, ev) {
-  //   originatorEv = ev;
-  //   $mdOpenMenu(ev);
-  // };
 };
