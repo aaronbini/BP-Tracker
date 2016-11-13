@@ -46,6 +46,7 @@ function controller (readingService, $window, chartService) {
 
   readingService.getByUser(this.userId)
     .then(readings => {
+      if (!readings.readings.length) throw {error: 'No readings for this user.'};
       this.readings = readings.readings;
       this.categoryCount = readings.categoryCount;
       console.log(this.categoryCount);

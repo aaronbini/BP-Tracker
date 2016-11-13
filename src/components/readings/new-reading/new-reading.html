@@ -15,6 +15,13 @@
       <div ng-message="required">This is required!</div>
     </div>
   </md-input-container>
+  <!-- <md-input-container>
+    <label>Hours Slept Last Night:</label>
+    <input placeholder="Hours Slept Last Night" name="sleepHours" ng-model="$ctrl.reading.hoursSlept" required>
+    <div ng-messages="newReading.diastolic.$error" role="alert">
+      <div ng-message="required">This is required!</div>
+    </div>
+  </md-input-container> -->
   <md-button type="submit" class="md-raised md-primary">Save</md-button>
   <md-button ng-click="$ctrl.cancel()" class="md-raised md-primary">Cancel</md-button>
 </form>

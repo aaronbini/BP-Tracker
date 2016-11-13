@@ -8,16 +8,19 @@ export default {
 
 controller.$inject = ['$window', 'userService', '$state'];
 function controller ($window, userService, $state) {
-  this.userId = $window.localStorage.getItem('userId');
+  this.userId = $state.params.userId;
+  this.username = $state.params.username;
+
   //user init - set goals: sysGoal, diaGoal, readings per week, fitness goals, sleep tracking
   this.goals = {
-    sys: null,
-    dia: null,
+    sysGoal: null,
+    diaGoal: null,
     perWeek: null,
+    hoursSleep: null
   };
 
   this.submitGoals = function () {
-    userService.submitGoals(this.userId, this.goals)
+    userService.setGoals(this.userId, this.goals)
       .then(user => {
         $state.go('dashboard', {user});
       })

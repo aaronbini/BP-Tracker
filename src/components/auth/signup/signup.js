@@ -19,13 +19,13 @@ function controller (userService) {
 
   this.authenticate = () => {
     return userService.signup(this.credentials)
+      // eslint-disable-next-line no-unused-vars
       .then((user) => {
-        console.log('user: ', user);
-        this.success();
+        this.success({action: 'signup'});
         return true;
       })
-      .catch((error) => {
-        this.error = error;
+      .catch((err) => {
+        this.error = err;
         this.cancel();
         return false;
       });
