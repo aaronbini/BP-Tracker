@@ -1,6 +1,7 @@
 <h3>Welcome {{$ctrl.username}}!</h3>
 <h4>Set Goals for your BP Readings, as well as general health goals below.</h4>
-<h4>Have a Google Fit Account? Link that to this account here: </h4><md-button>Google Fit OAuth</md-button>
+<h4>Have a Google Fit Account? Link that to this account here: </h4><md-button ng-click="$ctrl.googleAuth()">Google Fit OAuth</md-button>
+<p ng-if="$ctrl.success">{{$ctrl.success}}</p>
 <form name="setGoals" ng-submit="setGoals.$valid && $ctrl.submitGoals()" layout="column">
   <md-input-container>
     <label>Systolic Goal: </label>
