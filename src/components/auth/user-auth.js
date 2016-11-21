@@ -16,12 +16,16 @@ function controller ($auth, tokenService) {
   this.authenticate = provider => {
     $auth.authenticate(provider)
       .then(response => {
-        tokenService.setGoogle(response.data.token);
+        console.log('google token response: ', response);
+        tokenService.setGoogle(response.data);
+        tokenService.set(response.data.token);
         this.success();
+        return true;
       })
       .catch( err => {
         this.error = err;
         console.log(err);
+        return false;
       });
   };
 
