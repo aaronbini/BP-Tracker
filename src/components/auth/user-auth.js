@@ -6,7 +6,23 @@ export default {
     success: '&',
     cancel: '&'
   },
-  controller: function () {
-    this.action = 'signin';
-  }
+  controller
 };
+
+controller.$inject = ['$auth', 'tokenService'];
+function controller ($auth, tokenService) {
+  this.action = 'signin';
+
+  this.authenticate = provider => {
+    $auth.authenticate(provider)
+      .then(response => {
+        tokenService.setGoogle(response.data.token);
+        this.success();
+      })
+      .catch( err => {
+        this.error = err;
+        console.log(err);
+      });
+  };
+
+}

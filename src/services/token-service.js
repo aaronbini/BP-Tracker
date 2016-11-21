@@ -3,6 +3,8 @@ tokenService.$inject = ['$window'];
 const TOKEN = 'token';
 const USER_NAME = 'username';
 const ID = 'userId';
+const GOOGLE = 'google';
+const VERIFY = 'google_verify';
 
 export default function tokenService ($window) {
   return {
@@ -31,6 +33,10 @@ export default function tokenService ($window) {
       $window.localStorage.setItem(TOKEN, payload.token);
       $window.localStorage.setItem(ID, payload.id);
       $window.localStorage.setItem(USER_NAME, payload.username);
+    },
+    setGoogle(payload) {
+      $window.localStorage.setItem(GOOGLE, payload.access_token);
+      $window.localStorage.setItem(VERIFY, payload.id_token);
     }
   };
 };
