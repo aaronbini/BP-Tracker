@@ -60,6 +60,12 @@ export default function chartService () {
         datasets: [{
           label: 'Systolic',
           pointStyle: 'circle',
+          fill: false,
+          tension: 0,
+          backgroundColor: 'gray',
+          borderColor: 'gray',
+          // multiTooltipTemplate: '<%=datasetLabel%> : <%= "Test" %>',
+          multiTooltipTemplate: '<%if (label){%><%=label%>: <%}%><strong><%= value %></strong>%',
           pointHoverBorderWidth: 4,
           pointHoverBorderColor: 'rgba(220,220,220,1)',
           pointHoverRadius: 3,
