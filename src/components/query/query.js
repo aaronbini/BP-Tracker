@@ -38,6 +38,7 @@ function controller (readingService, chartService) {
     this.errorMessage = null;
     readingService.getInRange(this.userId, this.dateRange)
       .then(userStats => {
+        if (!userStats.readings.length) throw 'No readings in that range.';
         this.readings = userStats.readings;
         return {
           dateFormatted: chartService.formatDates(this.readings),
@@ -55,7 +56,6 @@ function controller (readingService, chartService) {
         this.createDoughnut(element2, charts.chart2);
       })
       .catch(err => {
-        console.log(err);
         this.errorMessage = err;
       });
   };

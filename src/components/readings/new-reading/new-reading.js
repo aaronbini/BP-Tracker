@@ -6,8 +6,8 @@ export default {
   controller
 };
 
-controller.$inject = ['$window', 'readingService', '$state'];
-function controller ($window, readingService, $state) {
+controller.$inject = ['$window', 'readingService', '$state', '$rootScope'];
+function controller ($window, readingService, $state, $rootScope) {
 
   this.show = 'true';
   this.userId = $window.localStorage.getItem('userId');
@@ -28,6 +28,7 @@ function controller ($window, readingService, $state) {
   this.saveReading = () => {
     readingService.postNew(this.userId, this.reading)
       .then(reading => {
+        $rootScope.completed = true;
         $state.go('dashboard', {todayReading: reading});
       })
       .catch(err => console.log(err));

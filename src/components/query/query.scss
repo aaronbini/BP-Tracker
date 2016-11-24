@@ -1,22 +1,4 @@
-.error {
-  border: 2px solid darkred;
-  border-radius: 15px;
-  opacity: 0.6;
-  background-color: red;
-  width: 75%;
-  height: 25px;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-width: 240px;
-  max-width: 475px;
-}
-
-.error h3 {
-  color: white;
-}
+@import "../../scss/main.scss";
 
 .md-calendar {
   color: black;
