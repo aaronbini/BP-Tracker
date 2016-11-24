@@ -13,7 +13,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/app.html'
     }),
-    new EnvironmentPlugin(['API_URL']),
+    new EnvironmentPlugin(['API_URL', 'CLIENT_ID', 'CLIENT_SECRET']),
     new ExtractTextPlugin('/styles/bundle.css')
   ],
   module: {

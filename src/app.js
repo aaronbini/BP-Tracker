@@ -6,17 +6,7 @@ import md from 'angular-material';
 import messages from 'angular-messages';
 import 'angular-material/angular-material.css';
 import 'angular-ui-router/release/stateEvents';
-
-// angular.module('momentjs',[])
-//   .factory('moment', function ($window) {
-//     if($window.moment){
-//       $window._thirdParty = $window._thirdParty || {};
-//       $window._thirdParty.moment = $window.moment;
-//       try { delete $window.moment; } catch (e) {$window.moment = undefined;}
-//     }
-//     var moment = $window._thirdParty.moment;
-//     return moment;
-//   });
+import satellizer from 'satellizer';
 
 const app = angular.module('bpTracker', [
   router,
@@ -25,6 +15,7 @@ const app = angular.module('bpTracker', [
   services,
   md,
   messages,
+  satellizer
   // d3
 ]);
 
@@ -33,7 +24,7 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
     .primaryPalette('teal')
     .accentPalette('deep-orange')
     .backgroundPalette('teal')
-    .warnPalette('red')
+    .warnPalette('red');
     // .dark();
 }]);
 

@@ -4,6 +4,17 @@
       <md-radio-button class="md-accent" ng-model="$ctrl.action" value="signin">Sign In</md-radio-button>
       <md-radio-button class="md-accent" ng-model="$ctrl.action" value="signup">Sign Up</md-radio-button>
     </md-radio-group>
+    <div>
+  		<!-- <label>
+  			<input type="radio" ng-model="$ctrl.action" value="signin">
+  			Sign In
+  		</label>
+  		<label>
+  			<input type="radio" ng-model="$ctrl.action" value="signup">
+  			Sign Up
+  		</label> -->
+  		<md-button ng-click="$ctrl.authenticate('google')">Sign in with Google</md-button>
+  	</div>
 
   <signin ng-show="$ctrl.action==='signin'" cancel="$ctrl.cancel()" success="$ctrl.success(action)"></signin>
   <signup ng-show="$ctrl.action==='signup'" cancel="$ctrl.cancel()" success="$ctrl.success({action: 'signup'})"></signup>

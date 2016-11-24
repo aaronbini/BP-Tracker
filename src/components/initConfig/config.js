@@ -19,7 +19,7 @@ function controller ($window, userService, $state) {
     hoursSleep: null
   };
 
-  this.submitGoals = function () {
+  this.submitGoals = () => {
     userService.setGoals(this.userId, this.goals)
       .then(user => {
         $state.go('dashboard', {user});
@@ -28,5 +28,13 @@ function controller ($window, userService, $state) {
         console.log(err);
       });
   };
+
+  // this.googleAuth = () => {
+  //   $googleService.oAuth()
+  //     .then(res => {
+  //       console.log(res);
+  //       this.success = 'Successfully authorized. You can now sync with Google Fit.';
+  //     });
+  // };
 
 };

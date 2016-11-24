@@ -60,16 +60,24 @@ export default function chartService () {
         datasets: [{
           label: 'Systolic',
           pointStyle: 'circle',
-          pointHoverBorderWidth: 4,
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          fill: false,
+          tension: 0.1,
+          backgroundColor: 'coral',
+          borderColor: 'coral',
+          pointHoverBorderWidth: 3,
+          pointHoverBorderColor: 'black',
           pointHoverRadius: 3,
           pointRadius: 2,
           data: []
         }, {
           label: 'Diastolic',
           pointStyle: 'circle',
-          pointHoverBorderWidth: 4,
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          fill: false,
+          tension: 0.1,
+          backgroundColor: 'crimson',
+          borderColor: 'crimson',
+          pointHoverBorderWidth: 3,
+          pointHoverBorderColor: 'black',
           pointHoverRadius: 3,
           pointRadius: 2,
           data: []

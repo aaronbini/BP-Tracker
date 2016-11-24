@@ -7,31 +7,22 @@ export default {
   controller
 };
 
-controller.$inject = ['$window', 'userService', '$state', 'readingService'];
-function controller ($window, userService, $state, readingService) {
+controller.$inject = ['$window', 'userService', '$state', 'readingService', '$rootScope'];
+function controller ($window, userService, $state, readingService, $rootScope) {
 
   this.styles = styles;
   this.username = $window.localStorage.getItem('username');
   this.userId = $window.localStorage.getItem('userId');
   this.date = new Date();
 
-  // if ($state.params.user) {
-  //   this.user = $state.params.user;
-  // } else {
-  //   userService.getMe(this.userId)
-  //     .then(user => {
-  //       this.user = user;
-  //     })
-  //     .catch(err => console.log(err));
-  // }
-
   if ($state.params.todayReading) {
     this.todayReading = $state.params.todayReading;
+    $rootScope.completed = this.todayReading.completed;
   } else {
     readingService.todayCompleted(this.userId)
       .then(today => {
-        console.log(today);
         this.todayReading = today.reading;
+        $rootScope.completed = today.todayCompleted;
       })
       .catch(err => console.log(err));
   }

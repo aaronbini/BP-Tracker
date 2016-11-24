@@ -25,9 +25,18 @@ function controller (readingService, $window, chartService) {
   this.createLineGraph = (element, data, unitType) => {
     this.chart = new chartService.chart(element, {
       type: 'line',
-      fill: false,
       data,
       options: {
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            title: function(title) {
+              let date = new Date(title[0].xLabel);
+              return date.toLocaleDateString();
+            }
+          }
+        },
         scales: {
           xAxes: [{
             type: 'time',
