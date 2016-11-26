@@ -1,14 +1,29 @@
-userService.$inject = ['tokenService', '$http', 'apiUrl'];
+userService.$inject = ['tokenService', '$http', 'apiUrl', '$auth'];
 
-export default function userService (tokenService, $http, apiUrl) {
-  // const current = tokenService.getCurrent();
-  //
-  // if (current.token) {
-  //   $http.get(`${apiUrl}/auth/verify`)
-  //     .catch(() => {
-  //       tokenService.remove();
-  //     });
-  // }
+export default function userService (tokenService, $http, apiUrl, $auth) {
+  const googleToken = tokenService.getGoogle();
+
+  if (googleToken) {
+    $http.post(`${apiUrl}/auth/google/checkToken`, {googleToken})
+      .catch(() => {
+        tokenService.removeGoogle();
+        getNewToken();
+      });
+  } else {
+    getNewToken();
+  }
+
+  function getNewToken () {
+    $auth.authenticate('google')
+      .then(response => {
+        tokenService.removeGoogle();
+        tokenService.setGoogle(response.data);
+        tokenService.set(response.data.token);
+      })
+      .catch( err => {
+        console.log(err);
+      });
+  }
 
 
   function buildAuthURI (scopes, id) {
@@ -25,8 +40,10 @@ export default function userService (tokenService, $http, apiUrl) {
   };
 
   return {
+
     buildAuthURI,
 
+    getNewToken
   };
 
 }

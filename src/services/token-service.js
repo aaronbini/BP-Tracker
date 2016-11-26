@@ -5,6 +5,7 @@ const USER_NAME = 'username';
 const ID = 'userId';
 const GOOGLE = 'google';
 const VERIFY = 'google_verify';
+const REFRESH = 'refresh_token';
 
 export default function tokenService ($window) {
   return {
@@ -34,9 +35,18 @@ export default function tokenService ($window) {
       $window.localStorage.setItem(ID, payload.id);
       $window.localStorage.setItem(USER_NAME, payload.username);
     },
-    setGoogle(payload) {
+    setGoogle (payload) {
       $window.localStorage.setItem(GOOGLE, payload.access_token);
       $window.localStorage.setItem(VERIFY, payload.id_token);
+      $window.localStorage.setItem(REFRESH, payload.refresh_token);
+    },
+    getGoogle () {
+      $window.localStorage.getItem(GOOGLE);
+    },
+    removeGoogle () {
+      $window.localStorage.removeItem(GOOGLE);
+      $window.localStorage.removeItem(VERIFY);
+      // $window.localStorage.removeItem(REFRESH);
     }
   };
 };
