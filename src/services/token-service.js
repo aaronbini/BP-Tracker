@@ -35,18 +35,22 @@ export default function tokenService ($window) {
       $window.localStorage.setItem(ID, payload.id);
       $window.localStorage.setItem(USER_NAME, payload.username);
     },
+    setRefresh (refresh) {
+      $window.localStorage.setItem(REFRESH, refresh);
+    },
     setGoogle (payload) {
       $window.localStorage.setItem(GOOGLE, payload.access_token);
       $window.localStorage.setItem(VERIFY, payload.id_token);
-      $window.localStorage.setItem(REFRESH, payload.refresh_token);
     },
     getGoogle () {
-      $window.localStorage.getItem(GOOGLE);
+      return $window.localStorage.getItem(GOOGLE);
+    },
+    getRefresh () {
+      return $window.localStorage.getItem(REFRESH);
     },
     removeGoogle () {
       $window.localStorage.removeItem(GOOGLE);
       $window.localStorage.removeItem(VERIFY);
-      // $window.localStorage.removeItem(REFRESH);
     }
   };
 };

@@ -7,8 +7,8 @@ export default {
   controller
 };
 
-controller.$inject = ['$window', 'userService', '$state', 'readingService', '$rootScope'];
-function controller ($window, userService, $state, readingService, $rootScope) {
+controller.$inject = ['$window', 'userService', '$state', 'readingService', '$rootScope', 'googleService'];
+function controller ($window, userService, $state, readingService, $rootScope, googleService) {
 
   this.styles = styles;
   this.username = $window.localStorage.getItem('username');
@@ -26,5 +26,9 @@ function controller ($window, userService, $state, readingService, $rootScope) {
       })
       .catch(err => console.log(err));
   }
+
+  this.checkValid = () => {
+    googleService.checkValid();
+  };
 
 };

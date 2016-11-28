@@ -16,7 +16,7 @@ function controller ($auth, tokenService) {
   this.authenticate = provider => {
     $auth.authenticate(provider)
       .then(response => {
-        console.log('google token response: ', response);
+        if (response.data.refresh_token) tokenService.setRefresh(response.data.refresh_token);
         tokenService.setGoogle(response.data);
         tokenService.set(response.data.token);
         this.success();

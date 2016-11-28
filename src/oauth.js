@@ -8,6 +8,7 @@ export default function oauth($authProvider, apiUrl) {
     optionalUrlParams: ['access_type'],
     accessType: 'offline',
     url: url,
+    prompt: 'consent',
     clientId: client_id,
     requiredUrlParams: ['scope'],
     scope: ['profile+email+' + 'https://www.googleapis.com/auth/fitness.activity.read+' +
