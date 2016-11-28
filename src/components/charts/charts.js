@@ -58,7 +58,6 @@ function controller (readingService, $window, chartService) {
       if (!readings.readings.length) throw {error: 'No readings for this user.'};
       this.readings = readings.readings;
       this.categoryCount = readings.categoryCount;
-      console.log(this.categoryCount);
       return {
         dateFormatted: chartService.formatDates(this.readings),
         categoryCount: this.categoryCount
@@ -73,7 +72,6 @@ function controller (readingService, $window, chartService) {
     })
     .then(charts => {
       const unitType = chartService.setAxisConfig(charts.firstDate);
-      console.log(unitType);
       this.createLineGraph(element1, charts.chart1, unitType);
       this.createDoughnut(element2, charts.chart2);
     })

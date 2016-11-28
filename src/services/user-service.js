@@ -46,6 +46,7 @@ export default function userService (tokenService, $http, apiUrl) {
 
     logout () {
       tokenService.remove();
+      tokenService.removeGoogle();
     },
 
     signin: credential('signin'),
