@@ -9,12 +9,13 @@
     <md-card-header-text>
       <div class="welcome">
         <h2>Welcome {{$ctrl.username}}</h2>
-        <h3>Today's Reading: <span>{{$ctrl.todayReading.systolic}} / {{$ctrl.todayReading.diastolic}}</span></h3>
+        <h3>Reading for {{$ctrl.date | date: 'shortDate'}}: <span>{{$ctrl.todayReading.systolic}} / {{$ctrl.todayReading.diastolic}}</span></h3>
       </div>
     </md-card-header-text>
   </md-card-header>
   <md-card-content>
-    <md-button ng-click="$ctrl.checkValid()">Google Check</md-button>
+    <!-- <md-button ng-click="$ctrl.checkValid()">Google Check</md-button>
+    <md-button ng-click="$ctrl.getFitStats()">Fit Stats</md-button> -->
     <charts>Loading...</charts>
   </md-card-content>
 </md-card>

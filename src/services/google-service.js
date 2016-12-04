@@ -1,20 +1,21 @@
-userService.$inject = ['tokenService', '$http', 'apiUrl', '$auth'];
+userService.$inject = ['tokenService', '$http', 'apiUrl'];
 
-export default function userService (tokenService, $http, apiUrl, $auth) {
-  const googleToken = tokenService.getGoogle();
+export default function userService (tokenService, $http, apiUrl) {
+  // const googleToken = tokenService.getGoogle();
 
   //bini.aaron.job refresh token
   //1/3MPApMPgaajitVOhi41gMBdNjNphTc4CB9wTRQKB9LFabP8u1zgYvRcrdwzzg5M5
-  function checkValid () {
+  function checkValid (googleToken) {
     if (googleToken) {
-      $http.post(`${apiUrl}/auth/google/checkToken`, {googleToken})
+      return $http.post(`${apiUrl}/auth/google/checkToken`, {googleToken})
       .catch(() => {
+        console.log('in catch');
         tokenService.removeGoogle();
-        refreshToken();
+        return refreshToken();
       });
     } else {
       tokenService.removeGoogle();
-      refreshToken();
+      return refreshToken();
     }
   }
 
@@ -28,24 +29,18 @@ export default function userService (tokenService, $http, apiUrl, $auth) {
     };
     return $http.post(`${apiUrl}/auth/google/refresh`, refresh)
       .then(newToken => {
-        console.log('newToken', newToken);
+        console.log('new token: ', newToken);
         tokenService.setGoogle(newToken.data);
-      })
-      .catch(err => console.log(err));
+      });
   }
 
-  function fitStats (googleAuth) {
-    return $http.post(`${apiUrl}/google/googleStats`, {googleAuth})
-      .then(response => {
-        console.log('google fit response: ', response);
-        return response;
-      })
-      .catch(err => console.log(err));
+  function fitStats (googleAuth, category) {
+
+    return $http.post(`${apiUrl}/google/steps`, {googleAuth, category})
+      .then(response => response.data);
   }
 
   return {
-
-    // getNewToken,
 
     checkValid,
 
@@ -55,14 +50,3 @@ export default function userService (tokenService, $http, apiUrl, $auth) {
   };
 
 }
-
-// function getNewToken () {
-//   $auth.authenticate('google')
-//     .then(response => {
-//       tokenService.setGoogle(response.data);
-//       tokenService.set(response.data.token);
-//     })
-//     .catch( err => {
-//       console.log(err);
-//     });
-// }

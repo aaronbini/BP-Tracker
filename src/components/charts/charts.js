@@ -7,10 +7,11 @@ export default {
   controller
 };
 
-controller.$inject = ['readingService', '$window', 'chartService'];
-function controller (readingService, $window, chartService) {
+controller.$inject = ['readingService', '$window', 'chartService', 'googleService'];
+function controller (readingService, $window, chartService, googleService) {
   this.styles = styles;
   this.userId = $window.localStorage.getItem('userId');
+  this.hasGoogle = $window.localStorage.getItem('has_google');
 
   const element1 = document.getElementById('graph');
   const element2 = document.getElementById('doughnut');
@@ -53,6 +54,10 @@ function controller (readingService, $window, chartService) {
     });
   };
 
+  //TODO: add Promise.all for google fit aggregation - so far:
+  //weekly steps and weekly calories burnt, also should do the same for
+  //user sleep tally
+
   readingService.getByUser(this.userId)
     .then(readings => {
       if (!readings.readings.length) throw {error: 'No readings for this user.'};
@@ -76,4 +81,5 @@ function controller (readingService, $window, chartService) {
       this.createDoughnut(element2, charts.chart2);
     })
     .catch(err => console.log(err));
+
 };

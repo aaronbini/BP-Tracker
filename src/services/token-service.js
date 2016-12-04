@@ -6,6 +6,7 @@ const ID = 'userId';
 const GOOGLE = 'google';
 const VERIFY = 'google_verify';
 const REFRESH = 'refresh_token';
+const HAS_GOOGLE = 'has_google';
 
 export default function tokenService ($window) {
   return {
@@ -34,6 +35,7 @@ export default function tokenService ($window) {
       $window.localStorage.setItem(TOKEN, payload.token);
       $window.localStorage.setItem(ID, payload.id);
       $window.localStorage.setItem(USER_NAME, payload.username);
+      $window.localStorage.setItem(HAS_GOOGLE, payload.hasGoogle);
     },
     setRefresh (refresh) {
       $window.localStorage.setItem(REFRESH, refresh);
