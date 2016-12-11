@@ -29,7 +29,6 @@ export default function userService (tokenService, $http, apiUrl) {
     };
     return $http.post(`${apiUrl}/auth/google/refresh`, refresh)
       .then(newToken => {
-        console.log('new token: ', newToken);
         tokenService.setGoogle(newToken.data);
       });
   }

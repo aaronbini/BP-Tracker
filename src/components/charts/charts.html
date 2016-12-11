@@ -8,5 +8,6 @@
     <canvas id="doughnut"></canvas>
   </div>
 </div>
-
-<google ng-if="$ctrl.hasGoogle" get-fit-stats="$ctrl.getFitStats" check-valid="$ctrl.checkValid"></google>
+<h3>Average Reading: {{$ctrl.average.sys}} / {{$ctrl.average.dia}}
+<h3>Mean Reading: <span>{{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}</span></h3>
+<google ng-if="$ctrl.hasGoogle"></google>

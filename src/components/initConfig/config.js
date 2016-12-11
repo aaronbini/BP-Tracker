@@ -6,12 +6,11 @@ export default {
   controller
 };
 
-controller.$inject = ['$window', 'userService', '$state'];
-function controller ($window, userService, $state) {
+controller.$inject = ['userService', '$state'];
+function controller (userService, $state) {
   this.userId = $state.params.userId;
   this.username = $state.params.username;
 
-  //user init - set goals: sysGoal, diaGoal, readings per week, fitness goals, sleep tracking
   this.goals = {
     sysGoal: null,
     diaGoal: null,
@@ -28,13 +27,5 @@ function controller ($window, userService, $state) {
         console.log(err);
       });
   };
-
-  // this.googleAuth = () => {
-  //   $googleService.oAuth()
-  //     .then(res => {
-  //       console.log(res);
-  //       this.success = 'Successfully authorized. You can now sync with Google Fit.';
-  //     });
-  // };
 
 };

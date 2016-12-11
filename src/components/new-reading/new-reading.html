@@ -1,6 +1,6 @@
 
-<md-button ng-if="$ctrl.show === 'false'" ng-click="$ctrl.showForm()" class="md-raised md-primary">Submit Reading</md-button>
-<form ng-if="$ctrl.show === 'true'" name="newReading" ng-submit="newReading.$valid && $ctrl.saveReading()" layout="column">
+<md-button ng-if="$ctrl.show === false" ng-click="$ctrl.showForm()" class="md-raised md-primary">Submit Reading</md-button>
+<form ng-if="$ctrl.show === true" name="newReading" ng-submit="newReading.$valid && $ctrl.saveReading()" layout="column">
   <md-input-container>
     <label>Systolic:</label>
     <input placeholder="Systolic" name="systolic" ng-model="$ctrl.reading.systolic" required>

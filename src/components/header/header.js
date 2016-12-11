@@ -13,6 +13,7 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
   this.styles = styles;
   this.username = $window.localStorage.getItem('username');
   this.userId = $window.localStorage.getItem('userId');
+  this.isAuthenticated = userService.isAuthenticated;
   this.error;
 
   if (this.userId) {
@@ -24,10 +25,6 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
     .catch(err => console.log(err));
   }
 
-  this.uiOnParamsChanged = function(newParams) {
-    console.log('new params: ', newParams);
-  };
-
   this.logout = ()=>{
     userService.logout();
     $state.go('home');
@@ -38,13 +35,13 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
     $state.go('user');
   };
 
-  this.isAuthenticated = userService.isAuthenticated;
   this.prompt = () => {
     $mdDialog.show({
       parent: angular.element(document.body),
       template: '<user-auth success="success(action)" cancel="cancel()"></user-auth>',
       controller: ['$scope', function($scope) {
 
+        //TODO: fix signup/signin action parameter here
         $scope.success = (action) => {
           this.userId = $window.localStorage.getItem('userId');
           this.username = $window.localStorage.getItem('username');
