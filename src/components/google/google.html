@@ -2,13 +2,13 @@
 <md-button ng-click="$ctrl.getFitStats('calories')">Calories</md-button>
 <md-button ng-click="$ctrl.getFitStats('steps')">Steps</md-button>
 
-<div ng-if="$ctrl.weekCalories || $ctrl.weekSteps">
+<div ng-if="$ctrl.week.calories || $ctrl.week.steps">
   <h1>Weekly Google Fit Stats</h1>
   <h3>Week of {{$ctrl.weekRange.start | date: 'shortDate'}} to {{$ctrl.weekRange.end | date: 'shortDate'}}</h3>
-  <div ng-if="$ctrl.weekCalories">
+  <div ng-if="$ctrl.week.calories">
     <h3 class="title-tag">Calories Burnt</h3>
     <div class="fit-stats">
-      <md-card class="fit-card" ng-repeat="day in $ctrl.weekCalories" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <md-card class="fit-card" ng-repeat="day in $ctrl.week.calories">
          <md-card-title>
            <md-card-title-text>
              <span class="md-headline">{{day.day}}</span>
@@ -19,10 +19,10 @@
      </div>
   </div>
 
-  <div ng-if="$ctrl.weekSteps">
+  <div ng-if="$ctrl.week.steps">
     <h3 class="title-tag">Steps Taken</h3>
     <div class="fit-stats">
-      <md-card class="fit-card" ng-repeat="day in $ctrl.weekSteps" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <md-card class="fit-card" ng-repeat="day in $ctrl.week.steps">
          <md-card-title>
            <md-card-title-text>
              <span class="md-headline">{{day.day}}</span>

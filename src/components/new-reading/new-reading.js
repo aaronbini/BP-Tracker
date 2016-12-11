@@ -9,7 +9,7 @@ export default {
 controller.$inject = ['$window', 'readingService', '$state', '$rootScope'];
 function controller ($window, readingService, $state, $rootScope) {
 
-  this.show = 'true';
+  this.show = true;
   this.userId = $window.localStorage.getItem('userId');
   this.reading = {
     systolic: '',
@@ -18,11 +18,11 @@ function controller ($window, readingService, $state, $rootScope) {
   };
 
   this.cancel = () => {
-    this.show = 'false';
+    this.show = false;
   };
 
   this.showForm = () => {
-    this.show = 'true';
+    this.show = true;
   };
 
   this.saveReading = () => {

@@ -16,11 +16,11 @@ function controller ($auth, tokenService) {
   this.authenticate = provider => {
     $auth.authenticate(provider)
       .then(response => {
-        console.log('user: ', response);
         if (response.data.refresh_token) tokenService.setRefresh(response.data.refresh_token);
         tokenService.setGoogle(response.data);
         tokenService.set(response.data.token);
-        this.success();
+        //need to come back to this, modifying state.go based on signin vs. signup
+        this.success(/*this.action*/);
         return true;
       })
       .catch( err => {

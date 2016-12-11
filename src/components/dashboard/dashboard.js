@@ -14,7 +14,6 @@ function controller ($window, userService, $state, readingService, $rootScope, g
   this.username = $window.localStorage.getItem('username');
   this.userId = $window.localStorage.getItem('userId');
   this.googleToken = $window.localStorage.getItem('google');
-  console.log('google token: ', this.googleToken);
   this.date = new Date();
 
   if ($state.params.todayReading) {

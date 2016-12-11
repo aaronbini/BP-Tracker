@@ -16,7 +16,7 @@ controller.$inject = ['readingService', 'chartService'];
 function controller (readingService, chartService) {
 
   this.styles = styles;
-  this.show = 'true';
+  this.show = true;
   this.dateRange = {
     fromDate: null,
     toDate: null
@@ -25,13 +25,12 @@ function controller (readingService, chartService) {
   const element1 = document.getElementById('graph');
   const element2 = document.getElementById('doughnut');
 
-
   this.cancel = () => {
-    this.show = 'false';
+    this.show = false;
   };
 
   this.showForm = () => {
-    this.show = 'true';
+    this.show = true;
   };
 
   this.submit = () => {
