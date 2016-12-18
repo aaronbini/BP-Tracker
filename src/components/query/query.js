@@ -16,7 +16,6 @@ controller.$inject = ['readingService', 'chartService'];
 function controller (readingService, chartService) {
 
   this.styles = styles;
-  this.show = true;
   this.dateRange = {
     fromDate: null,
     toDate: null
@@ -25,19 +24,13 @@ function controller (readingService, chartService) {
   const element1 = document.getElementById('graph');
   const element2 = document.getElementById('doughnut');
 
-  this.cancel = () => {
-    this.show = false;
-  };
-
-  this.showForm = () => {
-    this.show = true;
-  };
-
   this.submit = () => {
     this.errorMessage = null;
     readingService.getInRange(this.userId, this.dateRange)
       .then(userStats => {
         if (!userStats.readings.length) throw 'No readings in that range.';
+        //readings should be passed through from dashboard, query should update parent readings
+        //via two-way bindings
         this.readings = userStats.readings;
         return {
           dateFormatted: chartService.formatDates(this.readings),

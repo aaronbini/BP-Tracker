@@ -22,10 +22,17 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       data: {
         requiresAuth: true
       },
+      //pass through objects but not on url
+      params: {
+        user: null,
+        todayReading: null
+      },
       resolve: {
         todayReading: ['$stateParams', p => {
+          console.log(p);
           if (p) return p.todayReading;
         }],
+        user: ['$stateParams', p => p.user]
       },
       component: 'dashboard'
     })

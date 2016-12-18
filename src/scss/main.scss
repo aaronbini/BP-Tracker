@@ -94,7 +94,7 @@ footer a:hover {
 
 .canvasContain {
   width: 50%;
-  height: 400px;
+  height: 100%;
   padding: calc((100% - 1500px)/6.1);
   display: inline-block;
 }
@@ -125,8 +125,12 @@ footer a:hover {
   color: white;
 }
 
-//mediaQuery for mobile-first chart display
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
 
-// .md-button._md-nav-button {
-//   padding: 0px;
-// }
+  .canvasContain {
+    width: 90%;
+  }
+}
