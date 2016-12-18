@@ -8,6 +8,7 @@
     <canvas id="doughnut"></canvas>
   </div>
 </div>
-<h3>Average Reading: {{$ctrl.average.sys}} / {{$ctrl.average.dia}}
-<h3>Mean Reading: <span>{{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}</span></h3>
+<h3 style="margin-bottom: 20px;" ng-if="$ctrl.mean">Mean Reading: {{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}
+<h3 style="margin-bottom: 20px;" ng-if="$ctrl.median">Median Reading: <span>{{$ctrl.median.sys}} / {{$ctrl.median.dia}}</span></h3>
+<md-divider ></md-divider>
 <google ng-if="$ctrl.hasGoogle"></google>

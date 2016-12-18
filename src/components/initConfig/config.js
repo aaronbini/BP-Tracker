@@ -2,15 +2,16 @@ import template from './config.html';
 
 export default {
   template,
-  bindings: {},
+  bindings: {
+    userId: '<',
+    username: '<'
+  },
   controller
 };
 
 controller.$inject = ['userService', '$state'];
 function controller (userService, $state) {
-  this.userId = $state.params.userId;
-  this.username = $state.params.username;
-
+  
   this.goals = {
     sysGoal: null,
     diaGoal: null,

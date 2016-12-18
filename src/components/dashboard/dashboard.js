@@ -3,20 +3,27 @@ import styles from './dashboard.scss';
 
 export default {
   template,
-  bindings: {},
+  bindings: {
+    todayReading: '<',
+    user: '<'
+  },
   controller
 };
 
-controller.$inject = ['$window', 'userService', '$state', 'readingService', '$rootScope', 'googleService', 'tokenService'];
-function controller ($window, userService, $state, readingService, $rootScope, googleService, tokenService) {
-
+//TODO: reduce number of dependencies here.
+controller.$inject = ['$window', 'userService', '$state', 'readingService', '$rootScope'];
+function controller ($window, userService, $state, readingService, $rootScope) {
+  //re-factor: Readings should live at dashboard (parent-level) and be passed down to other components via bindings.
   this.styles = styles;
+  //these will be passed through from config.js, need to find all entry points to dashboard
+  //and make sure user is passed through
   this.username = $window.localStorage.getItem('username');
   this.userId = $window.localStorage.getItem('userId');
   this.googleToken = $window.localStorage.getItem('google');
   this.date = new Date();
 
   if ($state.params.todayReading) {
+    console.log($state.params);
     this.todayReading = $state.params.todayReading;
     $rootScope.completed = this.todayReading.completed;
   } else {
@@ -27,22 +34,5 @@ function controller ($window, userService, $state, readingService, $rootScope, g
       })
       .catch(err => console.log(err));
   }
-
-  // this.checkValid = () => {
-  //   googleService.checkValid();
-  // };
-  //
-  // this.getFitStats = () => {
-  //   googleService.checkValid()
-  //     .then(() => {
-  //       console.log('google access token valid');
-  //       return googleService.fitStats(this.googleToken);
-  //     })
-  //     .then(data => {
-  //       console.log('google fit data');
-  //       console.log(data);
-  //     })
-  //     .catch(err => console.log(err));
-  // };
 
 };

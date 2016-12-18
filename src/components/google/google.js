@@ -26,6 +26,7 @@ function controller (googleService, $window) {
   this.checkValid()
     .then(() => this.getFitStats(cats))
     .then(stats => {
+      
       this.weekRange.start = stats[0].then;
       this.weekRange.end = stats[0].now;
 
