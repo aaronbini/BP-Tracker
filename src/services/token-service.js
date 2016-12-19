@@ -53,6 +53,8 @@ export default function tokenService ($window) {
     removeGoogle () {
       $window.localStorage.removeItem(GOOGLE);
       $window.localStorage.removeItem(VERIFY);
+      $window.localStorage.removeItem(REFRESH);
+      $window.localStorage.removeItem(HAS_GOOGLE);
     }
   };
 };

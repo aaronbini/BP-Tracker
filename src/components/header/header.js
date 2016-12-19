@@ -41,7 +41,6 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
       template: '<user-auth success="success(action)" cancel="cancel()"></user-auth>',
       controller: ['$scope', function($scope) {
 
-        //TODO: fix signup/signin action parameter here
         $scope.success = (action) => {
           this.userId = $window.localStorage.getItem('userId');
           this.username = $window.localStorage.getItem('username');
@@ -50,11 +49,10 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
             this.completed = completed.todayCompleted;
             $mdDialog.hide();
             if (action === 'signup') {
-              console.log('username: ', this.username);
-              console.log('userID: ', this.userId);
-              return $state.go('config', {username: this.username, userId: this.userId});
+              return $state.go('googleconfig', {username: this.username, userId: this.userId});
+            } else {
+              return $state.go('dashboard', {username: this.username});
             }
-            return $state.go('dashboard', {username: this.username});
           })
           .catch(err => console.log(err));
         };

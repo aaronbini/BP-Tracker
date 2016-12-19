@@ -1,6 +1,5 @@
-<h2>Sign In</h2>
+<h2 style="margin-top: 10px;">Sign In</h2>
 <form name="auth" ng-submit="auth.$valid && $ctrl.authenticate()" layout="column">
-  <!-- <md-dialog-content> -->
     <md-input-container>
       <input name="email" required placeholder="Email" type="text" ng-model="$ctrl.credentials.email">
       <div ng-messages="auth.email.$error" role="alert">

@@ -27,6 +27,7 @@ export default function userService (tokenService, $http, apiUrl) {
       client_secret: process.env.CLIENT_SECRET,
       grant_type: 'refresh_token'
     };
+    
     return $http.post(`${apiUrl}/auth/google/refresh`, refresh)
       .then(newToken => {
         tokenService.setGoogle(newToken.data);
