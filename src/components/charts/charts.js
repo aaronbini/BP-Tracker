@@ -58,11 +58,14 @@ function controller (readingService, $window, chartService) {
   //this should really be done at the dashboard level, and then readings can be passed down.
   readingService.getByUser(this.userId)
     .then(readings => {
+      this.readings = [];
+      //copy readings.readings to this.readings because the readingService.getMedian
+      //method mutates the array, and was mutating this.readings before the graph was made
+      Object.assign(this.readings, readings.readings);
       if (!readings.readings.length) throw {error: 'No readings for this user.'};
-      this.readings = readings.readings;
       this.categoryCount = readings.categoryCount;
-      this.mean = readingService.getMean(this.readings);
-      this.median = readingService.getMedian(this.readings);
+      this.mean = readingService.getMean(readings.readings);
+      this.median = readingService.getMedian(readings.readings);
       return {
         dateFormatted: chartService.formatDates(this.readings),
         categoryCount: this.categoryCount

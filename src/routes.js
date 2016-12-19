@@ -6,6 +6,21 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       url: '/',
       component: 'landing'
     })
+    .state('googleconfig', {
+      url: '/googleconfig',
+      data: {
+        requiresAuth: true
+      },
+      params: {
+        username: null,
+        userId: null
+      },
+      resolve: {
+        username: ['$stateParams', p => p.username],
+        userId: ['$stateParams', p => p.userId]
+      },
+      component: 'googleInitConfig'
+    })
     .state('config', {
       url: '/config/:username/:userId',
       data: {
@@ -29,7 +44,6 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       },
       resolve: {
         todayReading: ['$stateParams', p => {
-          console.log(p);
           if (p) return p.todayReading;
         }],
         user: ['$stateParams', p => p.user]
@@ -78,15 +92,6 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
         requiresAuth: true
       },
       component: 'account'
-    })
-    //maybe should not have admin for viewing all users?
-    .state('users', {
-      url: '/users',
-      data: {
-        requiresAuth: true,
-        requiresAdmin: true
-      },
-      component: 'listUsers'
     });
 
   $urlRouterProvider.otherwise('/');

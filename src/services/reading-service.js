@@ -6,10 +6,10 @@ export default function readingService (tokenService, $http, apiUrl) {
     get () {},
 
     //TODO: combine getToday and todayCompleted
-    getToday (userId) {
-      return $http.get(`${apiUrl}/readings/${userId}/todayReading`)
-        .then(response => response.data);
-    },
+    // getToday (userId) {
+    //   return $http.get(`${apiUrl}/readings/${userId}/todayReading`)
+    //     .then(response => response.data);
+    // },
 
     todayCompleted (userId) {
       return $http.get(`${apiUrl}/readings/${userId}/todayCompleted`)

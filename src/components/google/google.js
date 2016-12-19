@@ -23,7 +23,8 @@ function controller (googleService, $window) {
     }));
   };
 
-  this.checkValid()
+  if (JSON.parse($window.localStorage.getItem('has_google'))) {
+    this.checkValid()
     .then(() => this.getFitStats(cats))
     .then(stats => {
       
@@ -39,5 +40,7 @@ function controller (googleService, $window) {
       });
     })
     .catch(err => console.log(err));
+  }
+  
 
 };

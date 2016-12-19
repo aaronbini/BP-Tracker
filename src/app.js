@@ -16,7 +16,6 @@ const app = angular.module('bpTracker', [
   md,
   messages,
   satellizer
-  // d3
 ]);
 
 app.config(['$mdThemingProvider', function($mdThemingProvider){
@@ -25,7 +24,6 @@ app.config(['$mdThemingProvider', function($mdThemingProvider){
     .accentPalette('deep-orange')
     .backgroundPalette('teal')
     .warnPalette('red');
-    // .dark();
 }]);
 
 export default app;

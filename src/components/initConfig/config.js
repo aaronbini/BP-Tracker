@@ -9,14 +9,17 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', '$state'];
-function controller (userService, $state) {
+controller.$inject = ['userService', '$state', '$window'];
+function controller (userService, $state, $window) {
   
+  this.hasGoogle = $window.localStorage.getItem('has_google');
   this.goals = {
     sysGoal: null,
     diaGoal: null,
     perWeek: null,
-    hoursSleep: null
+    hoursSleep: null,
+    caloriesDay: null,
+    stepsDay: null,
   };
 
   this.submitGoals = () => {
