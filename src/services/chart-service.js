@@ -1,6 +1,9 @@
 import chart from 'chart.js';
 
 export default function chartService () {
+
+  chart.defaults.global.legend.display = false;
+
   return {
     chart,
 
@@ -10,6 +13,25 @@ export default function chartService () {
       });
       return readings;
     },
+
+    //convert other charts to this style, where new chart is returned from the method
+    configGoogleSteps (context, chartType, category, taken, goal) {
+      let short = goal - taken;
+      return new chart(context, {
+        type: 'doughnut',
+        data: {
+          labels: [ category, `${short} short` ],
+          datasets: [{
+            data: [ taken, short ],
+            backgroundColor: [ 'cornflowerblue' ],
+            hoverBackgroundColor: [ 'blue' ]
+          }]
+        },
+        options: {
+          cutoutPercentage: 75
+        }
+      });
+    }, 
 
     configDoughnut (countObj) {
       const dataPlot = {

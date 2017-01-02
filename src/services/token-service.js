@@ -47,6 +47,9 @@ export default function tokenService ($window) {
     getGoogle () {
       return $window.localStorage.getItem(GOOGLE);
     },
+    hasGoogle () {
+      return $window.localStorage.getItem(HAS_GOOGLE);
+    },
     getRefresh () {
       return $window.localStorage.getItem(REFRESH);
     },

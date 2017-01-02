@@ -36,7 +36,7 @@ export default function userService (tokenService, $http, apiUrl) {
 
   function fitStats (googleAuth, category) {
 
-    return $http.post(`${apiUrl}/google/steps`, {googleAuth, category})
+    return $http.post(`${apiUrl}/google/stats`, {googleAuth, category})
       .then(response => response.data);
   }
 

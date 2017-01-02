@@ -20,7 +20,10 @@ function controller (readingService, $window, chartService) {
   this.createDoughnut = (element, data) => {
     this.doughnut = new chartService.chart(element, {
       type: 'doughnut',
-      data: data
+      data: data,
+      options: {
+        cutoutPercentage: 75
+      }
     });
   };
   

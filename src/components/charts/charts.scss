@@ -1,21 +1,40 @@
-:local() {
-  // to isolate local classes with same names as in main.scss?
-}
+:local(.charts) {
 
-.canvasContain {
-  width: 75%;
-  height: 50%;
-  padding: calc((100% - 1500px)/6.1);
-  display: inline-block;
-}
+  h3 {
+    text-align: center;
+    margin-top: 30px;
+  }
 
-.canvasContain canvas {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  width: 90%;
-  height: 90%;
-}
+  .flex-container {
+    flex-direction: row;
+  }
 
-.canvasContain:last-child {
-  margin-right: 0;
+  .canvasContain {
+    width: 50%;
+  }
+
+  .canvasContain canvas {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 90%;
+    height: 90%;
+  }
+
+  @media (max-width: 800px) {
+    .flex-container {
+      display: -webkit-flex;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+    }
+
+    .canvasContain {
+      margin: 0 auto;
+      width: 75%;
+      height: 100%;
+      padding: calc((100% - 1500px)/6.1);
+      display: inline-block;
+    }
+  }
+
 }

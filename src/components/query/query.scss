@@ -1,5 +1,25 @@
-@import "../../scss/main.scss";
+// @import "../../scss/main.scss";
 
-.md-calendar {
-  color: black;
+:local(.query) {
+
+  //fix the datePicker date colors
+
+  #datePick {
+    span {
+      color: black;
+    }
+  }
+
+  .md-calendar.md-default-theme, .md-calendar {
+    color: black;
+  }
+
+  .custom-button {
+    background-color: rgba(0,150,136,0.2);
+    color: rgba(0,0,0,0.8);
+    &:hover {
+      background-color: rgba(0,150,136,0.4);
+    }
+  }
+
 }

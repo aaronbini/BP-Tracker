@@ -16,6 +16,23 @@ describe('components', () => {
     }
   };
 
+  // const fits = { 
+  //   sendObj: { 
+  //     calories: { 
+  //       Sun: 1019.3427734375,
+  //       Mon: 0,
+  //       Tues: 0,
+  //       Wed: 0,
+  //       Thurs: 0,
+  //       Fri: 0,
+  //       Sat: 0 
+  //     } 
+  //   },
+  //   then: 1482048000000,
+  //   now: 1482652799999,
+  //   category: 'calories' 
+  // };
+
   const readingService = {
     postNew(id, reading) {
       return Promise.resolve(reading);
@@ -34,7 +51,7 @@ describe('components', () => {
       this.valid = !this.valid;
       return Promise.resolve();
     },
-    fitStats () {
+    fitStats (google, cats) {
       return Promise.resolve(fit);
     }
   };
@@ -85,6 +102,7 @@ describe('components', () => {
       google: 'google123',
       refresh_token: 'refresh_it',
       userId: '123',
+      has_google: 'true',
       getItem: function (id) {
         return this[id];
       }
@@ -158,8 +176,7 @@ describe('components', () => {
 
     it('initializes proper controller properties', () => {
       assert.ok(component.goals);
-      assert.ok(component.userId);
-      assert.ok(component.username);
+      assert.ok(component.hasGoogle);
     });
 
     it('submit goals calls the userService.setGoals', done => {
@@ -218,18 +235,7 @@ describe('components', () => {
     });
 
     it('initializes with proper config', () => {
-      assert.ok(component.show);
       assert.ok(component.dateRange);
-    });
-
-    it('cancel() sets show to false', () => {
-      component.cancel();
-      assert.notOk(component.show);
-    });
-
-    it('showForm() sets show to true', () => {
-      component.showForm();
-      assert.ok(component.show);
     });
 
     it('call to submit properly calls readingService and chartService functions', done => {

@@ -1,11 +1,15 @@
 <query ng-if="$ctrl.readings" test="$ctrl.test" user-id="$ctrl.userId" readings="$ctrl.readings" create-line-graph="$ctrl.createLineGraph" create-doughnut="$ctrl.createDoughnut"></query>
 
-<div class="flex-container">
-  <div class="canvasContain">
-    <canvas id="graph"></canvas>
-  </div>
-  <div class="canvasContain">
-    <canvas id="doughnut"></canvas>
+<div ng-class="$ctrl.styles.charts">
+  <div class="flex-container">
+    <div class="canvasContain">
+     <h3>Readings By Date:</h3>
+      <canvas id="graph"></canvas>
+    </div>
+    <div class="canvasContain">
+      <h3>Readings By Category:</h3>
+      <canvas id="doughnut"></canvas>
+    </div>
   </div>
 </div>
 <h3 style="margin-bottom: 20px;" ng-if="$ctrl.mean">Mean Reading: {{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}
