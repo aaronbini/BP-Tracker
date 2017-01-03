@@ -14,6 +14,7 @@ export default function userService (tokenService, $http, apiUrl) {
     return (credentials) => {
       return $http.post(`${apiUrl}/auth/${endpoint}`, credentials)
         .then(result => {
+          console.log('token: ', result);
           tokenService.set(result.data.token);
         })
         .catch(err => {
