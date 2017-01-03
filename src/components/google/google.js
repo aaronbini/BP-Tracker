@@ -6,24 +6,44 @@ export default {
   controller
 };
 
-controller.$inject = ['googleService', '$window'];
-function controller (googleService, $window) {
+controller.$inject = ['googleService', 'tokenService', 'userService', 'chartService', '$timeout'];
+function controller (googleService, token, userService, chartService, $timeout) {
   this.styles = styles;
   this.weekRange = {};
   this.week = {};
   const cats = ['steps', 'calories'];
 
+  userService.getMe(token.getUserId())
+    .then(user => {
+      this.user = user;
+      console.log(this.user);
+    })
+    .catch(err => this.errorMessage = err.message || err);
+
+
   this.checkValid = () => {
-    return googleService.checkValid($window.localStorage.getItem('google'));
+    return googleService.checkValid(token.getGoogle());
   };
 
   this.getFitStats = (categories) => {
     return Promise.all(categories.map(category => {
-      return googleService.fitStats($window.localStorage.getItem('google'), category);
+      return googleService.fitStats(token.getGoogle(), category, token.getUserId());
     }));
   };
 
-  if (JSON.parse($window.localStorage.getItem('has_google'))) {
+  this.showCharts = () => {
+    this.week.steps.forEach(weekDay => {
+      const element = document.getElementById('steps' + weekDay.day);
+      chartService.configGoogleSteps(element, 'doughnut', 'steps', weekDay.count, this.user.stepsDay);
+    });
+
+    this.week.calories.forEach(weekDay => {
+      const element = document.getElementById('calories' + weekDay.day);
+      chartService.configGoogleSteps(element, 'doughnut', 'calories', weekDay.count, this.user.caloriesDay);
+    });
+  };
+
+  if (JSON.parse(token.hasGoogle())) {
     this.checkValid()
     .then(() => this.getFitStats(cats))
     .then(stats => {
@@ -38,9 +58,10 @@ function controller (googleService, $window) {
         }
         this.week[data.category] = weekArr;
       });
+
+      $timeout(this.showCharts, 1000);
+
     })
     .catch(err => console.log(err));
-  }
-  
-
+  } 
 };

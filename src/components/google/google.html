@@ -1,31 +1,35 @@
-<div ng-if="$ctrl.week.calories || $ctrl.week.steps">
-  <h1>Weekly Google Fit Stats</h1>
-  <h3>Week of {{$ctrl.weekRange.start | date: 'shortDate'}} to {{$ctrl.weekRange.end | date: 'shortDate'}}</h3>
-  <div ng-if="$ctrl.week.calories">
-    <h3 class="title-tag">Calories Burnt</h3>
-    <div class="fit-stats">
-      <md-card class="fit-card" ng-repeat="day in $ctrl.week.calories">
-         <md-card-title>
-           <md-card-title-text>
-             <span class="md-headline">{{day.day}}</span>
-             <span class="md-subhead">{{day.count}}</span>
-           </md-card-title-text>
-        </md-card-title>
-       </md-card>
-     </div>
-  </div>
+  <div ng-if="$ctrl.week.calories || $ctrl.week.steps" ng-class="$ctrl.styles.google">
 
-  <div ng-if="$ctrl.week.steps">
-    <h3 class="title-tag">Steps Taken</h3>
-    <div class="fit-stats">
-      <md-card class="fit-card" ng-repeat="day in $ctrl.week.steps">
-         <md-card-title>
-           <md-card-title-text>
-             <span class="md-headline">{{day.day}}</span>
-             <span class="md-subhead">{{day.count}}</span>
-           </md-card-title-text>
-        </md-card-title>
-       </md-card>
-     </div>
-   </div>
-</div>
+    <h1>Weekly Google Fit Stats</h1>
+    <h3>Week of {{$ctrl.weekRange.start | date: 'shortDate'}} to {{$ctrl.weekRange.end | date: 'shortDate'}}</h3>
+    <div ng-if="$ctrl.week.calories">
+      <h3 class="title-tag">Calories Burnt</h3>
+      <div class="fit-stats">
+        <md-card class="fit-card" ng-repeat="day in $ctrl.week.calories">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{day.day}}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <div class="canvasContain">
+            <canvas id="calories{{day.day}}"></canvas>
+          </div>
+        </md-card>
+      </div>
+    </div>
+
+    <div ng-if="$ctrl.week.steps">
+      <h3 class="title-tag">Steps Taken</h3>
+      <div class="fit-stats">
+        <md-card class="fit-card" ng-repeat="day in $ctrl.week.steps">
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">{{day.day}}</span>
+            </md-card-title-text>
+          </md-card-title>
+          <div class="canvasContain">
+            <canvas id="steps{{day.day}}"></canvas>
+          </div>
+        </md-card>
+      </div>
+    </div>

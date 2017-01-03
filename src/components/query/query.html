@@ -1,15 +1,17 @@
-<h3>Readings by Date</h3>
-<md-dialog-content>
-    <form name="readingQuery" ng-submit="$ctrl.submit()"
-    novalidate>
-        <md-datepicker ng-model="$ctrl.dateRange.fromDate" md-placeholder="From Date:"></md-datepicker>
-        <md-datepicker ng-model="$ctrl.dateRange.toDate" md-placeholder="To Date:"></md-datepicker>
-        <md-dialog-actions>
-            <md-button type="submit" class="md-primary">Get Readings By Date</md-button>
-        </md-dialog-actions>
-    </form>
-</md-dialog-content>
-<div ng-if="$ctrl.errorMessage" class="error">
-  <h3>**{{$ctrl.errorMessage}}</h3>
+<div ng-class="$ctrl.styles.query">
+    <h3>Query Readings: </h3>
+    <md-dialog-content>
+        <form name="readingQuery" ng-submit="$ctrl.submit()"
+        novalidate>
+            <md-datepicker id="datePick" ng-model="$ctrl.dateRange.fromDate" md-placeholder="From Date:"></md-datepicker>
+            <md-datepicker style="color: black;" ng-model="$ctrl.dateRange.toDate" md-placeholder="To Date:"></md-datepicker>
+            <md-dialog-actions>
+                <md-button type="submit" class="md-primary custom-button">Get Readings By Date</md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog-content>
+    <div ng-if="$ctrl.errorMessage" class="error">
+    <h3>**{{$ctrl.errorMessage}}</h3>
+    </div>
+    <md-divider ></md-divider>
 </div>
-<md-divider ></md-divider>

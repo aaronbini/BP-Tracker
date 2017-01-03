@@ -15,6 +15,9 @@ export default {
 controller.$inject = ['readingService', 'chartService'];
 function controller (readingService, chartService) {
 
+  //need to add button that shows after querying readings
+  //button would 'reset' charts to show all readings
+
   this.styles = styles;
   this.dateRange = {
     fromDate: null,
