@@ -1,4 +1,3 @@
-<!--<div ng-class="google">-->
   <div ng-if="$ctrl.week.calories || $ctrl.week.steps" ng-class="$ctrl.styles.google">
 
     <h1>Weekly Google Fit Stats</h1>
@@ -10,7 +9,6 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">{{day.day}}</span>
-              <!--<span class="md-subhead">{{day.count}}</span>-->
             </md-card-title-text>
           </md-card-title>
           <div class="canvasContain">
@@ -27,7 +25,6 @@
           <md-card-title>
             <md-card-title-text>
               <span class="md-headline">{{day.day}}</span>
-              <!--<span class="md-subhead">{{day.count}}</span>-->
             </md-card-title-text>
           </md-card-title>
           <div class="canvasContain">
@@ -36,13 +33,3 @@
         </md-card>
       </div>
     </div>
-
-
-  </div>
-<!--</div>-->
-  <div class="canvasContain">
-    <canvas id="testchart"></canvas>
-  </div>
-
-  <button ng-click="$ctrl.showCharts()">show charts</button>
-

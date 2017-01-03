@@ -6,8 +6,8 @@ export default {
   controller
 };
 
-controller.$inject = ['googleService', 'tokenService', 'userService', 'chartService'];
-function controller (googleService, token, userService, chartService) {
+controller.$inject = ['googleService', 'tokenService', 'userService', 'chartService', '$timeout'];
+function controller (googleService, token, userService, chartService, $timeout) {
   this.styles = styles;
   this.weekRange = {};
   this.week = {};
@@ -33,9 +33,13 @@ function controller (googleService, token, userService, chartService) {
 
   this.showCharts = () => {
     this.week.steps.forEach(weekDay => {
-      console.log('steps' + weekDay.day);
       const element = document.getElementById('steps' + weekDay.day);
       chartService.configGoogleSteps(element, 'doughnut', 'steps', weekDay.count, this.user.stepsDay);
+    });
+
+    this.week.calories.forEach(weekDay => {
+      const element = document.getElementById('calories' + weekDay.day);
+      chartService.configGoogleSteps(element, 'doughnut', 'calories', weekDay.count, this.user.caloriesDay);
     });
   };
 
@@ -55,14 +59,9 @@ function controller (googleService, token, userService, chartService) {
         this.week[data.category] = weekArr;
       });
 
-      // const element = document.getElementById('testchart');
-      // chartService.configGoogleSteps(element, 'doughnut', 'steps', this.week.steps[0].count, this.user.stepsDay);  
-    })
-    .then(() => {
+      $timeout(this.showCharts, 1000);
+
     })
     .catch(err => console.log(err));
-  
-  }
-  
-
+  } 
 };

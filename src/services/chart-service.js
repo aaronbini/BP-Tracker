@@ -20,7 +20,7 @@ export default function chartService () {
       return new chart(context, {
         type: 'doughnut',
         data: {
-          labels: [ category, `${short} short` ],
+          labels: [ category, 'short' ],
           datasets: [{
             data: [ taken, short ],
             backgroundColor: [ 'cornflowerblue' ],
@@ -77,7 +77,7 @@ export default function chartService () {
       }
     },
 
-    configLineChart (readings) {
+    configLineChart (readings, sysGoal, diaGoal) {
       const dataPlot = {
         datasets: [{
           label: 'Systolic',
@@ -103,11 +103,37 @@ export default function chartService () {
           pointHoverRadius: 3,
           pointRadius: 2,
           data: []
+        }, {
+          label: 'Systolic Goal',
+          pointStyle: 'line',
+          fill: false,
+          tension: 0.1,
+          backgroundColor: 'blue',
+          borderColor: 'blue',
+          pointHoverBorderWidth: 1,
+          pointHoverBorderColor: 'blue',
+          pointHoverRadius: 1,
+          pointRadius: 1,
+          data: []
+        }, {
+          label: 'Systolic Goal',
+          pointStyle: 'line',
+          fill: false,
+          tension: 0.1,
+          backgroundColor: 'green',
+          borderColor: 'green',
+          pointHoverBorderWidth: 1,
+          pointHoverBorderColor: 'green',
+          pointHoverRadius: 1,
+          pointRadius: 1,
+          data: []
         }]
       };
       readings.forEach(e => {
         dataPlot.datasets[0].data.push({x: e.createdAt, y: e.systolic});
         dataPlot.datasets[1].data.push({x: e.createdAt, y: e.diastolic});
+        dataPlot.datasets[2].data.push({x: e.createdAt, y: sysGoal});
+        dataPlot.datasets[3].data.push({x: e.createdAt, y: diaGoal});
       });
       return dataPlot;
     }
