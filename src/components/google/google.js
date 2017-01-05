@@ -16,7 +16,6 @@ function controller (googleService, token, userService, chartService, $timeout) 
   userService.getMe(token.getUserId())
     .then(user => {
       this.user = user;
-      console.log(this.user);
     })
     .catch(err => this.errorMessage = err.message || err);
 

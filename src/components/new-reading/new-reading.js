@@ -1,4 +1,5 @@
 import template from './new-reading.html';
+import styles from './new-reading.scss';
 
 export default {
   template,
@@ -8,27 +9,27 @@ export default {
 
 controller.$inject = ['$window', 'readingService', '$state', '$rootScope'];
 function controller ($window, readingService, $state, $rootScope) {
+  this.styles = styles;
 
-  this.show = true;
   this.userId = $window.localStorage.getItem('userId');
-  this.reading = {
-    systolic: '',
-    diastolic: ''
-    // hoursSlept: ''
+  this.reset = () => {
+    this.reading = {
+      systolic: '',
+      diastolic: '',
+      hours: ''
+    };
   };
+
+  this.reset();
 
   this.cancel = () => {
-    this.show = false;
-  };
-
-  this.showForm = () => {
-    this.show = true;
+    this.reset();
   };
 
   this.saveReading = () => {
     readingService.postNew(this.userId, this.reading)
       .then(reading => {
-        $rootScope.completed = true;
+        $rootScope.$emit('today');
         $state.go('dashboard', {todayReading: reading});
       })
       .catch(err => console.log(err));

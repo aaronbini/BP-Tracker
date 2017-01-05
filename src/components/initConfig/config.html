@@ -1,7 +1,7 @@
 <h3>Welcome {{$ctrl.username}}!</h3>
 <h4>Set Goals for your BP Readings, as well as general health goals below.</h4>
 <p ng-if="$ctrl.success">{{$ctrl.success}}</p>
-<form style="width: 50%;"name="setGoals" ng-submit="setGoals.$valid && $ctrl.submitGoals()" layout="column">
+<form style="width: 50%; margin: 0 auto;"name="setGoals" ng-submit="setGoals.$valid && $ctrl.submitGoals()" layout="column">
   <md-input-container>
     <label>Systolic Goal: </label>
     <input placeholder="Systolic Goal" name="systolic" ng-model="$ctrl.goals.sysGoal" required>

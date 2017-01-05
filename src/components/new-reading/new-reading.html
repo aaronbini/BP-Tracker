@@ -1,6 +1,6 @@
 
-<md-button ng-if="$ctrl.show === false" ng-click="$ctrl.showForm()" class="md-raised md-primary">Submit Reading</md-button>
-<form ng-if="$ctrl.show === true" name="newReading" ng-submit="newReading.$valid && $ctrl.saveReading()" layout="column">
+<!--<md-button ng-if="$ctrl.show === false" ng-click="$ctrl.showForm()" class="md-raised md-primary">Submit Reading</md-button>-->
+<form ng-class="$ctrl.styles.new" name="newReading" ng-submit="newReading.$valid && $ctrl.saveReading()" layout="column">
   <md-input-container>
     <label>Systolic:</label>
     <input placeholder="Systolic" name="systolic" ng-model="$ctrl.reading.systolic" required>
@@ -15,13 +15,13 @@
       <div ng-message="required">This is required!</div>
     </div>
   </md-input-container>
-  <!-- <md-input-container>
+   <md-input-container>
     <label>Hours Slept Last Night:</label>
-    <input placeholder="Hours Slept Last Night" name="sleepHours" ng-model="$ctrl.reading.hoursSlept" required>
+    <input placeholder="Hours Slept Last Night" name="sleepHours" ng-model="$ctrl.reading.hours" required>
     <div ng-messages="newReading.diastolic.$error" role="alert">
       <div ng-message="required">This is required!</div>
     </div>
-  </md-input-container> -->
+  </md-input-container> 
   <md-button type="submit" class="md-raised md-primary">Save</md-button>
   <md-button ng-click="$ctrl.cancel()" class="md-raised md-primary">Cancel</md-button>
 </form>
