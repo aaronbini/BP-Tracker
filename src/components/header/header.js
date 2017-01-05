@@ -15,12 +15,16 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
   this.userId = $window.localStorage.getItem('userId');
   this.isAuthenticated = userService.isAuthenticated;
   this.error;
+  this.completed = false;
+
+  $rootScope.$on('today', () => {
+    this.completed = true;
+  });
 
   if (this.userId) {
     readingService.todayCompleted(this.userId)
     .then(completed => {
-      this.completed = completed.todayCompleted;
-      $rootScope.completed = completed.todayCompleted;
+      this.completed = completed.todayCompleted;      
     })
     .catch(err => console.log(err));
   }

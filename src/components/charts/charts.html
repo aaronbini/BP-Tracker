@@ -1,4 +1,12 @@
-<query ng-if="$ctrl.readings" test="$ctrl.test" user-id="$ctrl.userId" readings="$ctrl.readings" create-line-graph="$ctrl.createLineGraph" create-doughnut="$ctrl.createDoughnut"></query>
+<query ng-if="$ctrl.readings" 
+  test="$ctrl.test" 
+  user-id="$ctrl.userId" 
+  readings="$ctrl.readings" 
+  create-line-graph="$ctrl.createLineGraph" 
+  create-doughnut="$ctrl.createDoughnut"
+  chart="$ctrl.chart"
+  doughnut="$ctrl.doughnut">
+</query>
 
 <div ng-class="$ctrl.styles.charts">
   <div class="flex-container">
@@ -12,7 +20,8 @@
     </div>
   </div>
 </div>
-<h3 style="margin-bottom: 20px;" ng-if="$ctrl.mean">Mean Reading: {{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}
+<h3 style="margin-bottom: 20px;" ng-if="$ctrl.mean">Mean Reading: <span>{{$ctrl.mean.sys}} / {{$ctrl.mean.dia}}</span></h3>
 <h3 style="margin-bottom: 20px;" ng-if="$ctrl.median">Median Reading: <span>{{$ctrl.median.sys}} / {{$ctrl.median.dia}}</span></h3>
+<h3 style="margin-bottom: 20px;" ng-if="$ctrl.avgHours">Avg. Hours per Night: <span>{{$ctrl.avgHours}}</span></h3>
 <md-divider ></md-divider>
 <google ng-if="$ctrl.hasGoogle"></google>

@@ -8,6 +8,8 @@ export default {
     createDoughnut: '<',
     readings: '<',
     userId: '<',
+    doughnut: '<',
+    chart: '<'
   },
   controller
 };
@@ -47,6 +49,8 @@ function controller (readingService, chartService) {
         };
       })
       .then(charts => {
+        this.chart.destroy();
+        this.doughnut.destroy();
         this.createLineGraph(element1, charts.chart1);
         this.createDoughnut(element2, charts.chart2);
       })

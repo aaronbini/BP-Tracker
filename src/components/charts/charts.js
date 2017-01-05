@@ -69,7 +69,6 @@ function controller (readingService, $window, chartService, userService) {
     userService.getMe(this.userId),
     readingService.getByUser(this.userId)
   ]).then(([user, readings]) => {
-    console.log('user: ', user);
     this.readings = [];
     this.sysGoal = user.sysGoal;
     this.diaGoal = user.diaGoal;
@@ -78,6 +77,7 @@ function controller (readingService, $window, chartService, userService) {
     Object.assign(this.readings, readings.readings);
     if (!readings.readings.length) throw {error: 'No readings for this user.'};
     this.categoryCount = readings.categoryCount;
+    this.avgHours = this.categoryCount.hours;
     this.mean = readingService.getMean(readings.readings);
     this.median = readingService.getMedian(readings.readings);
     return {
@@ -93,7 +93,6 @@ function controller (readingService, $window, chartService, userService) {
     };
   })
   .then(charts => {
-    console.log(charts.chart1);
     const unitType = chartService.setAxisConfig(charts.firstDate);
     this.createLineGraph(element1, charts.chart1, unitType);
     this.createDoughnut(element2, charts.chart2);

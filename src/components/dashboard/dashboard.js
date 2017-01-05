@@ -23,7 +23,6 @@ function controller ($window, userService, $state, readingService, $rootScope) {
   this.date = new Date();
 
   if ($state.params.todayReading) {
-    console.log($state.params);
     this.todayReading = $state.params.todayReading;
     $rootScope.completed = this.todayReading.completed;
   } else {

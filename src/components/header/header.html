@@ -6,7 +6,7 @@
         <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="welcome" id="logo" flex="grow"><img src="../../../my-icons-collection/png/cardiogram.png">BP Tracker</md-nav-item>
         <md-nav-item ng-if="!$ctrl.isAuthenticated()" md-nav-click="$ctrl.prompt()" name="enter">Enter Site</md-nav-item>
         <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-sref="dashboard" name="dashboard">Dashboard</md-nav-item>
-        <md-nav-item ng-if="$ctrl.isAuthenticated() && !$root.completed" md-nav-sref="newReading" name="new-reading">Enter Reading</md-nav-item>
+        <md-nav-item ng-if="$ctrl.isAuthenticated() && !$ctrl.completed" md-nav-sref="newReading" name="new-reading">Enter Reading</md-nav-item>
         <md-nav-item ng-if="$ctrl.isAuthenticated()" md-nav-click="$ctrl.logout()" name="logout">Log Out</md-nav-item>
       </md-nav-bar>
   </md-content>

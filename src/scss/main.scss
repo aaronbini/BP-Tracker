@@ -82,6 +82,15 @@ footer a:hover {
   color: rgba(255, 110, 64, 0.87);
 }
 
+span {
+  // color: black;
+}
+
+ h3 span {
+  color: rgba(255,110,64,0.87);
+  font-weight: bold;
+}
+
 .full-height {
   height: 100%;
   margin-bottom: 75px;
@@ -123,6 +132,10 @@ footer a:hover {
 
 .error h3 {
   color: white;
+}
+
+.md-calendar.md-default-theme, .md-calendar {
+  color: black;
 }
 
 @media (max-width: 800px) {
