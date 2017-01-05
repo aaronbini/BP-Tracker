@@ -4,8 +4,8 @@
 
 * This Angular 1.5 App is built using a 'component' architecture.
 * Webpack is used to bundle/build/minify the client-side code.
-* OAuth is incorporated to pull in data from Google's Fit API.
-* User signup/signin is handled using JSON Web Tokens.
-* Data is stored in a MongoDB database with Mongoose used to structure the data.
+* Satellizer is used to incorporate OAuth in order to pull in data from Google's Fit API.
+* User signup/signin is managed using JSON Web Tokens.
+* Data visualization is handled using [Chartjs](http://www.chartjs.org/ "Chartjs").
 
 ### Live Site can be found here: [Live Site](https://fit-bp-tracker.herokuapp.com "Heroku Site")
