@@ -9,7 +9,8 @@ export default {
     readings: '<',
     userId: '<',
     doughnut: '<',
-    chart: '<'
+    chart: '<',
+    renderCharts: '<'
   },
   controller
 };
@@ -29,13 +30,17 @@ function controller (readingService, chartService) {
   const element1 = document.getElementById('graph');
   const element2 = document.getElementById('doughnut');
 
+  this.resetReadings = () => {
+    this.queried = false;
+    this.renderCharts();
+  }; 
+
   this.submit = () => {
     this.errorMessage = null;
+    this.queried = true;
     readingService.getInRange(this.userId, this.dateRange)
       .then(userStats => {
         if (!userStats.readings.length) throw 'No readings in that range.';
-        //readings should be passed through from dashboard, query should update parent readings
-        //via two-way bindings
         this.readings = userStats.readings;
         return {
           dateFormatted: chartService.formatDates(this.readings),

@@ -9,6 +9,9 @@
                 <md-button type="submit" class="md-primary custom-button">Get Readings By Date</md-button>
             </md-dialog-actions>
         </form>
+        <md-dialog-actions>
+            <md-button ng-if="$ctrl.queried === true" ng-click="$ctrl.resetReadings()" class="md-primary custom-button">View All Readings</md-button>
+        </md-dialog-actions>
     </md-dialog-content>
     <div ng-if="$ctrl.errorMessage" class="error">
     <h3>**{{$ctrl.errorMessage}}</h3>

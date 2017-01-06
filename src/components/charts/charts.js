@@ -17,13 +17,8 @@ function controller (readingService, $window, chartService, userService) {
   const element1 = document.getElementById('graph');
   const element2 = document.getElementById('doughnut');
 
-  userService.getMe(this.userId)
-    .then(user => {
-
-    })
-    .catch(err => console.log(err));
-
   this.createDoughnut = (element, data) => {
+    if (this.doughnut) { this.doughnut.destroy(); }
     this.doughnut = new chartService.chart(element, {
       type: 'doughnut',
       data: data,
@@ -34,6 +29,7 @@ function controller (readingService, $window, chartService, userService) {
   };
   
   this.createLineGraph = (element, data, unitType) => {
+    if (this.chart) { this.chart.destroy(); }
     this.chart = new chartService.chart(element, {
       type: 'line',
       data,
@@ -64,39 +60,44 @@ function controller (readingService, $window, chartService, userService) {
     });
   };
 
-  //this should really be done at the dashboard level, and then readings can be passed down.
-  Promise.all([
-    userService.getMe(this.userId),
-    readingService.getByUser(this.userId)
-  ]).then(([user, readings]) => {
-    this.readings = [];
-    this.sysGoal = user.sysGoal;
-    this.diaGoal = user.diaGoal;
-    //copy readings.readings to this.readings because the readingService.getMedian
-    //method mutates the array, and was mutating this.readings before the graph was made
-    Object.assign(this.readings, readings.readings);
-    if (!readings.readings.length) throw {error: 'No readings for this user.'};
-    this.categoryCount = readings.categoryCount;
-    this.avgHours = this.categoryCount.hours;
-    this.mean = readingService.getMean(readings.readings);
-    this.median = readingService.getMedian(readings.readings);
-    return {
-      dateFormatted: chartService.formatDates(this.readings),
-      categoryCount: this.categoryCount
-    };
-  })
-  .then(chartObj => {
-    return {
-      chart1: chartService.configLineChart(chartObj.dateFormatted, this.sysGoal, this.diaGoal),
-      chart2: chartService.configDoughnut(chartObj.categoryCount),
-      firstDate: chartObj.dateFormatted[0]
-    };
-  })
-  .then(charts => {
-    const unitType = chartService.setAxisConfig(charts.firstDate);
-    this.createLineGraph(element1, charts.chart1, unitType);
-    this.createDoughnut(element2, charts.chart2);
-  })
-  .catch(err => console.log(err));
+  this.renderCharts = () => {
+    //this should really be done at the dashboard level, and then readings can be passed down.
+    Promise.all([
+      userService.getMe(this.userId),
+      readingService.getByUser(this.userId)
+    ]).then(([user, readings]) => {
+      this.readings = [];
+      this.sysGoal = user.sysGoal;
+      this.diaGoal = user.diaGoal;
+      //copy readings.readings to this.readings because the readingService.getMedian
+      //method mutates the array, and was mutating this.readings before the graph was made
+      Object.assign(this.readings, readings.readings);
+      if (!readings.readings.length) throw {error: 'No readings for this user.'};
+      this.categoryCount = readings.categoryCount;
+      this.avgHours = this.categoryCount.hours;
+      this.mean = readingService.getMean(readings.readings);
+      this.median = readingService.getMedian(readings.readings);
+      return {
+        dateFormatted: chartService.formatDates(this.readings),
+        categoryCount: this.categoryCount
+      };
+    })
+    .then(chartObj => {
+      return {
+        chart1: chartService.configLineChart(chartObj.dateFormatted, this.sysGoal, this.diaGoal),
+        chart2: chartService.configDoughnut(chartObj.categoryCount),
+        firstDate: chartObj.dateFormatted[0]
+      };
+    })
+    .then(charts => {
+      const unitType = chartService.setAxisConfig(charts.firstDate);
+      this.createLineGraph(element1, charts.chart1, unitType);
+      this.createDoughnut(element2, charts.chart2);
+    })
+    .catch(err => console.log(err));
+  };
+
+  //render charts on page load
+  this.renderCharts();
 
 };

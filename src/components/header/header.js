@@ -6,23 +6,23 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', '$state', '$mdDialog', '$window', 'readingService', '$rootScope'];
+controller.$inject = ['userService', '$state', '$mdDialog', 'tokenService', 'readingService', '$rootScope'];
 
-function controller(userService, $state, $mdDialog, $window, readingService, $rootScope) {
+function controller(userService, $state, $mdDialog, token, readingService, $rootScope) {
 
   this.styles = styles;
-  this.username = $window.localStorage.getItem('username');
-  this.userId = $window.localStorage.getItem('userId');
+  this.username = token.getUsername();
+  this.userId = token.getUserId();
   this.isAuthenticated = userService.isAuthenticated;
   this.error;
-  this.completed = false;
+  // this.completed = false;
 
   $rootScope.$on('today', () => {
     this.completed = true;
   });
 
   if (this.userId) {
-    readingService.todayCompleted(this.userId)
+    readingService.todayCompleted(token.getUserId())
     .then(completed => {
       this.completed = completed.todayCompleted;      
     })
@@ -46,8 +46,8 @@ function controller(userService, $state, $mdDialog, $window, readingService, $ro
       controller: ['$scope', function($scope) {
 
         $scope.success = (action) => {
-          this.userId = $window.localStorage.getItem('userId');
-          this.username = $window.localStorage.getItem('username');
+          this.userId = token.getUserId();
+          this.username = token.getUsername();
           readingService.todayCompleted(this.userId)
           .then(completed => {
             this.completed = completed.todayCompleted;
