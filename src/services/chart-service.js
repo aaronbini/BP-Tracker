@@ -87,11 +87,11 @@ export default function chartService () {
       });
     },
 
-    setAxisConfig (firstDate) {
-      const now = new Date();
+    //finish fixing this method after interview
+    setAxisConfig (firstDate, lastDate) {
+      const now = lastDate.createdAt;
       const then = firstDate.createdAt;
       const elapsed = Math.floor(( now - then ) / 86400000);
-      console.log('elapsed: ', elapsed);
       if (elapsed >= 15 && elapsed < 90) {
         return 'week';
       } else if (elapsed >= 90) {
