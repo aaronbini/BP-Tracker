@@ -4,17 +4,34 @@ export default function chartService () {
 
   chart.defaults.global.legend.display = false;
 
+  function setLineData (label, color, radius, hoverRadius) {
+    return {
+      label,
+      pointStyle: 'circle',
+      fill: false,
+      tension: 0.4,
+      backgroundColor: color,
+      borderColor: color,
+      pointHoverBorderWidth: hoverRadius,
+      pointHoverBorderColor: 'black',
+      pointHoverRadius: hoverRadius,
+      pointRadius: radius,
+      borderWidth: 2,
+      data: []
+    };
+  }
+
   return {
     chart,
 
     formatDates (readings) {
-      readings.forEach(e => {
+      const formattedReadings = readings.map(e => {
         e.createdAt = Date.parse(e.createdAt);
+        return e;
       });
-      return readings;
+      return formattedReadings;
     },
 
-    //convert other charts to this style, where new chart is returned from the method
     configGoogleSteps (context, chartType, category, taken, goal) {
       let short = goal - taken;
       return new chart(context, {
@@ -33,7 +50,7 @@ export default function chartService () {
       });
     }, 
 
-    configDoughnut (countObj) {
+    configReadingsDoughnut (context, countObj) {
       const dataPlot = {
         labels: [
           'Good',
@@ -61,13 +78,20 @@ export default function chartService () {
             ]
           }]
       };
-      return dataPlot;
+      return new chart(context, {
+        type: 'doughnut',
+        data: dataPlot,
+        options: {
+          cutoutPercentage: 75
+        }
+      });
     },
 
     setAxisConfig (firstDate) {
       const now = new Date();
       const then = firstDate.createdAt;
       const elapsed = Math.floor(( now - then ) / 86400000);
+      console.log('elapsed: ', elapsed);
       if (elapsed >= 15 && elapsed < 90) {
         return 'week';
       } else if (elapsed >= 90) {
@@ -77,57 +101,14 @@ export default function chartService () {
       }
     },
 
-    configLineChart (readings, sysGoal, diaGoal) {
+    configLineChart (context, readings, sysGoal, diaGoal, unitType) {
       const dataPlot = {
-        datasets: [{
-          label: 'Systolic',
-          pointStyle: 'circle',
-          fill: false,
-          tension: 0.1,
-          backgroundColor: 'coral',
-          borderColor: 'coral',
-          pointHoverBorderWidth: 3,
-          pointHoverBorderColor: 'black',
-          pointHoverRadius: 3,
-          pointRadius: 2,
-          data: []
-        }, {
-          label: 'Diastolic',
-          pointStyle: 'circle',
-          fill: false,
-          tension: 0.1,
-          backgroundColor: 'crimson',
-          borderColor: 'crimson',
-          pointHoverBorderWidth: 3,
-          pointHoverBorderColor: 'black',
-          pointHoverRadius: 3,
-          pointRadius: 2,
-          data: []
-        }, {
-          label: 'Systolic Goal',
-          pointStyle: 'line',
-          fill: false,
-          tension: 0.1,
-          backgroundColor: 'blue',
-          borderColor: 'blue',
-          pointHoverBorderWidth: 1,
-          pointHoverBorderColor: 'blue',
-          pointHoverRadius: 1,
-          pointRadius: 1,
-          data: []
-        }, {
-          label: 'Systolic Goal',
-          pointStyle: 'line',
-          fill: false,
-          tension: 0.1,
-          backgroundColor: 'green',
-          borderColor: 'green',
-          pointHoverBorderWidth: 1,
-          pointHoverBorderColor: 'green',
-          pointHoverRadius: 1,
-          pointRadius: 1,
-          data: []
-        }]
+        datasets: [
+          setLineData('Systolic', 'coral', 1, 2),
+          setLineData('Diastolic', 'crimson', 1, 2),
+          setLineData('Systolic Goal', 'blue', 0, 0),
+          setLineData('Diastolic Goal', 'green', 0, 0)
+        ]
       };
       readings.forEach(e => {
         dataPlot.datasets[0].data.push({x: e.createdAt, y: e.systolic});
@@ -135,7 +116,34 @@ export default function chartService () {
         dataPlot.datasets[2].data.push({x: e.createdAt, y: sysGoal});
         dataPlot.datasets[3].data.push({x: e.createdAt, y: diaGoal});
       });
-      return dataPlot;
+      return new chart(context, {
+        type: 'line',
+        data: dataPlot,
+        options: {
+          tooltips: {
+            enabled: true,
+            mode: 'single',
+            callbacks: {
+              title: function(title) {
+                let date = new Date(title[0].xLabel);
+                return date.toLocaleDateString();
+              }
+            }
+          },
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                unit: unitType
+              },
+              position: 'bottom'
+            }],
+            yAxes: [{
+              stacked: false
+            }]
+          }
+        }
+      });
     }
 
   };

@@ -9,8 +9,8 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', '$window', '$auth', 'tokenService'];
-function controller(userService, $window, $auth, tokenService) {
+controller.$inject = ['userService', '$auth', 'tokenService'];
+function controller(userService, $auth, tokenService) {
   this.credentials = {
     email: '',
     password: ''
@@ -19,7 +19,7 @@ function controller(userService, $window, $auth, tokenService) {
   this.authenticate = () => {
     return userService.signin(this.credentials)
       .then(() => {
-        if (JSON.parse($window.localStorage.getItem('has_google'))) {
+        if (JSON.parse(tokenService.hasGoogle())) {
           $auth.authenticate('google')
             .then(response => {
               if (response.data.refresh_token) tokenService.setRefresh(response.data.refresh_token);

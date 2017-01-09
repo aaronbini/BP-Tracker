@@ -1,7 +1,4 @@
 <query ng-if="$ctrl.readings" 
-  test="$ctrl.test" 
-  user-id="$ctrl.userId" 
-  readings="$ctrl.readings" 
   create-line-graph="$ctrl.createLineGraph" 
   create-doughnut="$ctrl.createDoughnut"
   chart="$ctrl.chart"
@@ -25,4 +22,3 @@
 <h3 style="margin-bottom: 20px;" ng-if="$ctrl.median">Median Reading: <span>{{$ctrl.median.sys}} / {{$ctrl.median.dia}}</span></h3>
 <h3 style="margin-bottom: 20px;" ng-if="$ctrl.avgHours">Avg. Hours per Night: <span>{{$ctrl.avgHours}}</span></h3>
 <md-divider ></md-divider>
-<google ng-if="$ctrl.hasGoogle"></google>

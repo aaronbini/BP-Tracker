@@ -1,5 +1,8 @@
 <div ng-class="$ctrl.styles.query">
     <h3>Query Readings: </h3>
+    <div ng-if="$ctrl.errorMessage" class="error">
+        <h3>**{{$ctrl.errorMessage}}</h3>
+    </div>
     <md-dialog-content>
         <form name="readingQuery" ng-submit="$ctrl.submit()"
         novalidate>
@@ -13,8 +16,5 @@
             <md-button ng-if="$ctrl.queried === true" ng-click="$ctrl.resetReadings()" class="md-primary custom-button">View All Readings</md-button>
         </md-dialog-actions>
     </md-dialog-content>
-    <div ng-if="$ctrl.errorMessage" class="error">
-    <h3>**{{$ctrl.errorMessage}}</h3>
-    </div>
     <md-divider ></md-divider>
 </div>

@@ -37,7 +37,6 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
       data: {
         requiresAuth: true
       },
-      //pass through objects but not on url
       params: {
         user: null,
         todayReading: null
@@ -46,7 +45,8 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
         todayReading: ['$stateParams', p => {
           if (p) return p.todayReading;
         }],
-        user: ['$stateParams', p => p.user]
+        hasGoogle: ['tokenService', t => t.hasGoogle],
+        readings: ['readingService', 'tokenService', (r, t) => r.getByUser(t.getUserId())]
       },
       component: 'dashboard'
     })
@@ -73,18 +73,6 @@ export default function configRoutes($stateProvider, $urlRouterProvider) {
         requiresAuth: true
       },
       component: 'reading'
-    })
-    .state('actions', {
-      url: '/actions/:parentId/:parentName/:which',
-      resolve: {
-        parentId: ['$stateParams', p => p.parentId],
-        which: ['$stateParams', p => p.which],
-        parentName: ['$stateParams', p => p.parentName]
-      },
-      data: {
-        requiresAuth: true
-      },
-      component: 'actionItems'
     })
     .state('account', {
       url: '/account',

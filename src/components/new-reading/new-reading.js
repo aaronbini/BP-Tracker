@@ -7,11 +7,10 @@ export default {
   controller
 };
 
-controller.$inject = ['$window', 'readingService', '$state', '$rootScope'];
-function controller ($window, readingService, $state, $rootScope) {
+controller.$inject = ['tokenService', 'readingService', '$state', '$rootScope'];
+function controller (tokenService, readingService, $state, $rootScope) {
   this.styles = styles;
 
-  this.userId = $window.localStorage.getItem('userId');
   this.reset = () => {
     this.reading = {
       systolic: '',
@@ -27,9 +26,10 @@ function controller ($window, readingService, $state, $rootScope) {
   };
 
   this.saveReading = () => {
-    readingService.postNew(this.userId, this.reading)
+    readingService.postNew(tokenService.getUserId(), this.reading)
       .then(reading => {
         $rootScope.$emit('today');
+        this.reset();
         $state.go('dashboard', {todayReading: reading});
       })
       .catch(err => console.log(err));

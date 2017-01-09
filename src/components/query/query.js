@@ -6,8 +6,6 @@ export default {
   bindings: {
     createLineGraph: '<',
     createDoughnut: '<',
-    readings: '<',
-    userId: '<',
     doughnut: '<',
     chart: '<',
     renderCharts: '<'
@@ -15,11 +13,8 @@ export default {
   controller
 };
 
-controller.$inject = ['readingService', 'chartService'];
-function controller (readingService, chartService) {
-
-  //need to add button that shows after querying readings
-  //button would 'reset' charts to show all readings
+controller.$inject = ['readingService', 'chartService', 'tokenService', 'userService'];
+function controller (readingService, chartService, tokenService, userService) {
 
   this.styles = styles;
   this.dateRange = {
@@ -27,8 +22,8 @@ function controller (readingService, chartService) {
     toDate: null
   };
 
-  const element1 = document.getElementById('graph');
-  const element2 = document.getElementById('doughnut');
+  const lineCanvas = document.getElementById('graph');
+  const doughnutCanvas = document.getElementById('doughnut');
 
   this.resetReadings = () => {
     this.queried = false;
@@ -38,29 +33,26 @@ function controller (readingService, chartService) {
   this.submit = () => {
     this.errorMessage = null;
     this.queried = true;
-    readingService.getInRange(this.userId, this.dateRange)
-      .then(userStats => {
-        if (!userStats.readings.length) throw 'No readings in that range.';
-        this.readings = userStats.readings;
-        return {
-          dateFormatted: chartService.formatDates(this.readings),
-          categoryCount: userStats.categoryCount
-        };
-      })
-      .then(obj => {
-        return {
-          chart1: chartService.configLineChart(obj.dateFormatted),
-          chart2: chartService.configDoughnut(obj.categoryCount)
-        };
-      })
-      .then(charts => {
-        this.chart.destroy();
-        this.doughnut.destroy();
-        this.createLineGraph(element1, charts.chart1);
-        this.createDoughnut(element2, charts.chart2);
-      })
-      .catch(err => {
-        this.errorMessage = err;
-      });
+
+    Promise.all([
+      userService.getMe(tokenService.getUserId()),
+      readingService.getInRange(tokenService.getUserId(), this.dateRange)
+    ]).then(([user, readings]) => {
+
+      if (!readings.readings.length) throw {error: 'No readings in that range.'};
+      const sysGoal = user.sysGoal;
+      const diaGoal = user.diaGoal;
+      const formatted = chartService.formatDates(readings.readings);
+      const unitType = chartService.setAxisConfig(formatted[0]);
+      const categoryCount = readings.categoryCount;
+      
+      this.createDoughnut(doughnutCanvas, categoryCount);
+      this.createLineGraph(lineCanvas, formatted, sysGoal, diaGoal, unitType);
+    })
+    .catch(err => {
+      this.errorMessage = err;
+      console.log(err);
+    });
+    
   };
 };
