@@ -29,6 +29,8 @@ function controller (readingService, tokenService, chartService, userService) {
     this.chart = chartService.configLineChart(element, data, sysGoal, diaGoal, unitType);
   };
 
+  //could alternatively update mean and median readings as well as hours sleep/night
+  //for the queried date range
   this.renderCharts = (initial) => {
     let formatted;
     if (initial) {
@@ -36,7 +38,7 @@ function controller (readingService, tokenService, chartService, userService) {
     } else {
       formatted = this.readings;
     }
-    const unitType = chartService.setAxisConfig(formatted[0]);
+    const unitType = chartService.setAxisConfig(formatted[0], formatted[formatted.length - 1]);
     
     this.createDoughnut(doughnutCanvas, this.chartObjects.categoryCount);
     this.createLineGraph(lineCanvas, formatted, this.user.sysGoal, this.user.diaGoal, unitType);

@@ -43,7 +43,7 @@ function controller (readingService, chartService, tokenService, userService) {
       const sysGoal = user.sysGoal;
       const diaGoal = user.diaGoal;
       const formatted = chartService.formatDates(readings.readings);
-      const unitType = chartService.setAxisConfig(formatted[0]);
+      const unitType = chartService.setAxisConfig(formatted[0], formatted[formatted.length - 1]);
       const categoryCount = readings.categoryCount;
       
       this.createDoughnut(doughnutCanvas, categoryCount);
