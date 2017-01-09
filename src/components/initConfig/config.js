@@ -9,10 +9,10 @@ export default {
   controller
 };
 
-controller.$inject = ['userService', '$state', '$window'];
-function controller (userService, $state, $window) {
+controller.$inject = ['userService', '$state', 'tokenService'];
+function controller (userService, $state, tokenService) {
   
-  this.hasGoogle = $window.localStorage.getItem('has_google');
+  this.hasGoogle = tokenService.hasGoogle();
   this.goals = {
     sysGoal: null,
     diaGoal: null,

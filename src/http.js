@@ -4,8 +4,8 @@ export default function configHttp($httpProvider) {
   $httpProvider.interceptors.push(interceptor);
 };
 
-interceptor.$inject = ['$window', 'tokenService', '$state'];
-function interceptor($window, tokenService, $state) {
+interceptor.$inject = ['tokenService', '$state'];
+function interceptor(tokenService, $state) {
   return {
     request(config) {
       config.headers = config.headers || {};

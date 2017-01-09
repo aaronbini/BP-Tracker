@@ -9,6 +9,7 @@
     </md-card-header-text>
   </md-card-header>
   <md-card-content>
-    <charts>Loading...</charts>
+    <charts ng-if="$ctrl.readings" chart-objects="$ctrl.readings">Loading...</charts>
+    <google ng-if="$ctrl.hasGoogle">Loading...</google>
   </md-card-content>
 </md-card>
